@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import pl.com.turski.ah.main.Main;
+import pl.com.turski.ah.Main;
 
 import java.io.IOException;
 
@@ -21,7 +21,6 @@ public class MainController {
 
     public void menuAboutAction(ActionEvent event) {
         try {
-            // Load the fxml file and create a new stage for the popup
             Parent root = FXMLLoader.load(Main.class.getResource(Main.VIEW_PATH + "about/about.fxml"));
             Stage stage = new Stage();
             stage.setTitle("O programie");

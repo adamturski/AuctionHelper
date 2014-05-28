@@ -1,4 +1,4 @@
-package pl.com.turski.ah.main;
+package pl.com.turski.ah;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +11,8 @@ public class Main extends Application {
     public final static String VIEW_PATH = "/pl/com/turski/ah/view/";
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/pl/com/turski/ah/view/main/main.fxml"));
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource(VIEW_PATH + "main/main.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
