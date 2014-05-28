@@ -1,6 +1,7 @@
 .idea/**
 target/**
 *.iml
+out/
 
 hermes-server/.idea/**
 hermes-server/target/**
