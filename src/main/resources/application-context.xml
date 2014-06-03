@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="pl.com.turski.ah"/>
+
+    <bean id="setting" class="pl.com.turski.ah.core.setting.Setting">
+            <property name="marshaller" ref="castorMarshaller"/>
+            <property name="unmarshaller" ref="castorMarshaller"/>
+        </bean>
+        <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller">
+            <property name="mappingLocation" value="classpath:mapping.xml"/>
+        </bean>
+
+    <bean id="fxmlLoader" class="pl.com.turski.ah.spring.FxmlLoader">
+        <property name="viewPath" value="/pl/com/turski/ah/view/"/>
+    </bean>
+
+    <bean id="mainController" class="pl.com.turski.ah.view.main.MainController" factory-bean="fxmlLoader"
+          factory-method="load">
+        <constructor-arg value="main/main.fxml"/>
+    </bean>
+
+    <bean id="preferenceController" class="pl.com.turski.ah.view.preference.PreferenceController"
+          factory-bean="fxmlLoader" factory-method="load">
+        <constructor-arg value="preference/preference.fxml"/>
+    </bean>
+
+
+
+</beans>

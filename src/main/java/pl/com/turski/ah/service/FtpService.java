@@ -8,5 +8,6 @@ import java.util.List;
  */
 public interface FtpService {
 
+    public boolean testConnection();
     public void upload(List<BufferedImage> images);
 }

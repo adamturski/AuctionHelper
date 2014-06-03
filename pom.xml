@@ -30,6 +30,29 @@
             <artifactId>spring-core</artifactId>
             <version>4.0.3.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.0.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+            <version>4.0.3.RELEASE</version>
+        </dependency>
+        <!-- Uses Castor for XML -->
+        <dependency>
+            <groupId>org.codehaus.castor</groupId>
+            <artifactId>castor</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <!-- Castor need this -->
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.8.1</version>
+        </dependency>
 
         <!-- Logging framework -->
         <dependency>
@@ -65,6 +88,9 @@
                     <include>**/*.fxml</include>
                 </includes>
             </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
         </resources>
         <plugins>
             <plugin>
@@ -81,7 +107,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>2.0</version>
                 <configuration>
-                    <mainClass>pl.com.turski.ah.Main</mainClass>
+                    <mainClass>pl.com.turski.ah.App</mainClass>
                 </configuration>
                 <dependencies>
                     <dependency>

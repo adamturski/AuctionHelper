@@ -4,14 +4,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import org.springframework.stereotype.Controller;
 
 /**
  * User: Adam
  */
+@Controller
 public class AboutController {
 
     @FXML
-    private Button closeButton;
+    Button closeButton;
 
     @FXML
     public void closeButtonAction(ActionEvent event) {
