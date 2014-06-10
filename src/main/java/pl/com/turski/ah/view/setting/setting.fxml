@@ -10,7 +10,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="419.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.com.turski.ah.view.preference.PreferenceController">
+<VBox fx:id="view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="419.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.com.turski.ah.view.setting.SettingController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
@@ -34,7 +34,7 @@
                               <Label text="Serwer" />
                               <HBox alignment="CENTER" GridPane.columnIndex="1">
                                  <children>
-                                    <TextField fx:id="ftpServer" promptText="Adres" GridPane.columnIndex="1" HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="ftpHostname" promptText="Adres" GridPane.columnIndex="1" HBox.hgrow="ALWAYS" />
                                     <Label text=":" />
                                     <TextField fx:id="ftpPort" prefHeight="25.0" prefWidth="57.0" promptText="Port" />
                                  </children>
@@ -46,7 +46,7 @@
                               <Button fx:id="testButton" mnemonicParsing="false" onAction="#testButtonAction" text="Testuj" GridPane.rowIndex="4" />
                               <Label fx:id="connectionStatus" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <Label text="Folder galerii" GridPane.rowIndex="3" />
-                              <TextField fx:id="ftpGalleryFolder" prefHeight="25.0" prefWidth="192.0" promptText="Folder galerii" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="ftpWorkingDirectory" prefHeight="25.0" prefWidth="192.0" promptText="Folder galerii" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
                      </content>

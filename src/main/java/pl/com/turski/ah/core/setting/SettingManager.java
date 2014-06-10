@@ -3,7 +3,7 @@ package pl.com.turski.ah.core.setting;
 import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.stereotype.Component;
-import pl.com.turski.ah.model.Preference;
+import pl.com.turski.ah.model.Setting;
 
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -15,13 +15,15 @@ import java.io.IOException;
  * User: Adam
  */
 @Component
-public class Setting {
+public class SettingManager {
 
-    private static final String FILE_NAME = "preference.xml";
-
-    private Preference preference = new Preference();
+    private String settingFileName;
     private Marshaller marshaller;
     private Unmarshaller unmarshaller;
+
+    public void setSettingFileName(String settingFileName) {
+        this.settingFileName = settingFileName;
+    }
 
     public void setMarshaller(Marshaller marshaller) {
         this.marshaller = marshaller;
@@ -31,11 +33,11 @@ public class Setting {
         this.unmarshaller = unmarshaller;
     }
 
-    public void saveSettings() throws IOException {
+    public void saveSettings(pl.com.turski.ah.model.Setting setting) throws IOException {
         FileOutputStream os = null;
         try {
-            os = new FileOutputStream(FILE_NAME);
-            this.marshaller.marshal(preference, new StreamResult(os));
+            os = new FileOutputStream(settingFileName);
+            this.marshaller.marshal(setting, new StreamResult(os));
         } finally {
             if (os != null) {
                 os.close();
@@ -43,19 +45,15 @@ public class Setting {
         }
     }
 
-    public void loadSettings() throws IOException {
+    public Setting loadSettings() throws IOException {
         FileInputStream is = null;
         try {
-            is = new FileInputStream(FILE_NAME);
-            this.preference = (Preference) this.unmarshaller.unmarshal(new StreamSource(is));
+            is = new FileInputStream(settingFileName);
+            return (Setting) this.unmarshaller.unmarshal(new StreamSource(is));
         } finally {
             if (is != null) {
                 is.close();
             }
         }
-    }
-
-    public Preference getPreference() {
-        return preference;
     }
 }

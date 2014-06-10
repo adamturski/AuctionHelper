@@ -9,28 +9,23 @@
     <context:annotation-config/>
     <context:component-scan base-package="pl.com.turski.ah"/>
 
-    <bean id="setting" class="pl.com.turski.ah.core.setting.Setting">
-            <property name="marshaller" ref="castorMarshaller"/>
-            <property name="unmarshaller" ref="castorMarshaller"/>
-        </bean>
-        <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller">
-            <property name="mappingLocation" value="classpath:mapping.xml"/>
-        </bean>
+    <bean id="settingManager" class="pl.com.turski.ah.core.setting.SettingManager">
+        <property name="settingFileName" value="setting.xml"/>
+        <property name="marshaller" ref="castorMarshaller"/>
+        <property name="unmarshaller" ref="castorMarshaller"/>
+    </bean>
+
+    <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller">
+        <property name="mappingLocation" value="classpath:mapping.xml"/>
+    </bean>
 
     <bean id="fxmlLoader" class="pl.com.turski.ah.spring.FxmlLoader">
         <property name="viewPath" value="/pl/com/turski/ah/view/"/>
     </bean>
 
-    <bean id="mainController" class="pl.com.turski.ah.view.main.MainController" factory-bean="fxmlLoader"
-          factory-method="load">
-        <constructor-arg value="main/main.fxml"/>
-    </bean>
+    <bean id="ftpClient" class="org.apache.commons.net.ftp.FTPClient"/>
 
-    <bean id="preferenceController" class="pl.com.turski.ah.view.preference.PreferenceController"
-          factory-bean="fxmlLoader" factory-method="load">
-        <constructor-arg value="preference/preference.fxml"/>
-    </bean>
-
+    <import resource="view-context.xml"/>
 
 
 </beans>

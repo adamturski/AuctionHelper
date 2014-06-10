@@ -1,10 +1,10 @@
 package pl.com.turski.ah.service;
 
-import pl.com.turski.ah.model.Preference;
+import pl.com.turski.ah.model.Setting;
 
 /**
  * User: Adam
  */
 public interface CoreService {
-    public void setPreferences(Preference preferences);
+    public void setPreferences(Setting preferences);
 }

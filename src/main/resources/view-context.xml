@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="mainController" class="pl.com.turski.ah.view.main.MainController" factory-bean="fxmlLoader"
+          factory-method="load">
+        <constructor-arg value="main/main.fxml"/>
+    </bean>
+
+    <bean id="galleryChooseController" class="pl.com.turski.ah.view.galleryChoose.GalleryChooseController"
+          factory-bean="fxmlLoader"
+          factory-method="load">
+        <constructor-arg value="galleryChoose/galleryChoose.fxml"/>
+    </bean>
+
+
+    <bean id="settingController" class="pl.com.turski.ah.view.setting.SettingController" scope="prototype"
+          factory-bean="fxmlLoader" factory-method="load">
+        <constructor-arg value="setting/setting.fxml"/>
+    </bean>
+
+    <bean id="aboutController" class="pl.com.turski.ah.view.about.AboutController" scope="prototype"
+          factory-bean="fxmlLoader" factory-method="load">
+        <constructor-arg value="about/about.fxml"/>
+    </bean>
+
+
+</beans>

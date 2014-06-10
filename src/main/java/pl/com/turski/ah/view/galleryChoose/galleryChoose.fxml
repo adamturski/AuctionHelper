@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" style="-fx-padding: 10px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.com.turski.ah.view.galleryChoose.GalleryChooseController">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="580.0" style="-fx-spacing: 10px;" VBox.vgrow="NEVER">
+         <children>
+            <Button fx:id="galleryChooseButton" mnemonicParsing="false" onAction="#galleryChooseButtonAction" text="Wybierz folder" />
+            <Label fx:id="galleryPathLabel" />
+         </children>
+      </HBox>
+      <HBox prefHeight="0.0" prefWidth="580.0" VBox.vgrow="NEVER">
+         <children>
+            <Label text="Lista zdjęć w katalogu" />
+         </children>
+      </HBox>
+      <ListView fx:id="galleryFileList" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>

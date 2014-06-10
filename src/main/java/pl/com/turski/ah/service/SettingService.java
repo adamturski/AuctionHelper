@@ -1,15 +1,14 @@
 package pl.com.turski.ah.service;
 
-import pl.com.turski.ah.model.Preference;
+import pl.com.turski.ah.model.Setting;
 import pl.com.turski.ah.model.exception.SettingException;
+import pl.com.turski.ah.model.ftp.FtpSetting;
 
 /**
  * User: Adam
  */
 public interface SettingService {
-    public void loadSettings() throws SettingException;
+    public Setting loadSettings() throws SettingException;
 
-    public void saveSettings() throws SettingException;
-
-    public Preference getPreference();
+    public void saveSettings(FtpSetting ftpSetting) throws SettingException;
 }
