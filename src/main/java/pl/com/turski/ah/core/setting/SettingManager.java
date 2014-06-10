@@ -3,7 +3,7 @@ package pl.com.turski.ah.core.setting;
 import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.stereotype.Component;
-import pl.com.turski.ah.model.Setting;
+import pl.com.turski.ah.model.setting.Setting;
 
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -33,7 +33,7 @@ public class SettingManager {
         this.unmarshaller = unmarshaller;
     }
 
-    public void saveSettings(pl.com.turski.ah.model.Setting setting) throws IOException {
+    public void saveSettings(Setting setting) throws IOException {
         FileOutputStream os = null;
         try {
             os = new FileOutputStream(settingFileName);

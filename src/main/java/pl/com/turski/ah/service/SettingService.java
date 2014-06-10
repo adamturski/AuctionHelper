@@ -1,8 +1,8 @@
 package pl.com.turski.ah.service;
 
-import pl.com.turski.ah.model.Setting;
+import pl.com.turski.ah.model.setting.Setting;
 import pl.com.turski.ah.model.exception.SettingException;
-import pl.com.turski.ah.model.ftp.FtpSetting;
+import pl.com.turski.ah.model.setting.FtpSetting;
 
 /**
  * User: Adam

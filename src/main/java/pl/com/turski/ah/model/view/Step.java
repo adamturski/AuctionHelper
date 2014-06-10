@@ -4,7 +4,8 @@ package pl.com.turski.ah.model.view;
  * User: Adam
  */
 public enum Step {
-    GALLERY_CHOOSE("Krok pierwszy: Wskaż folder ze zdjęciami"), SEND_TO_FTP(""), FILL_ATTRIBUTES(""), CHECK_RESULTS("");
+    FOLDER_CHOOSE("Krok 1: Wskaż folder ze zdjęciami"),
+    GALLERY_CREATE("Krok 2: Generowanie galerii"), SEND_TO_FTP(""), FILL_ATTRIBUTES(""), CHECK_RESULTS("");
 
     private String stepTitle;
 

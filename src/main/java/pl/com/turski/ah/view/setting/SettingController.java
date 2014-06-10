@@ -9,10 +9,11 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.com.turski.ah.model.Setting;
+import pl.com.turski.ah.model.setting.GallerySetting;
+import pl.com.turski.ah.model.setting.Setting;
 import pl.com.turski.ah.model.exception.SettingException;
 import pl.com.turski.ah.model.ftp.FtpConnectionStatusCode;
-import pl.com.turski.ah.model.ftp.FtpSetting;
+import pl.com.turski.ah.model.setting.FtpSetting;
 import pl.com.turski.ah.service.FtpService;
 import pl.com.turski.ah.service.SettingService;
 import pl.com.turski.ah.view.ViewController;
@@ -43,6 +44,10 @@ public class SettingController implements ViewController, Initializable {
     Label connectionStatus;
     @FXML
     Label templateFilePath;
+    @FXML
+    TextField imageWidth;
+    @FXML
+    TextField thumbnailWidth;
     @FXML
     TableView attributesTable;
     @FXML
@@ -76,18 +81,20 @@ public class SettingController implements ViewController, Initializable {
     }
 
     public void initSetting() {
-        Setting setting = null;
         try {
-            setting = settingService.loadSettings();
+            Setting setting = settingService.loadSettings();
+            FtpSetting ftpSetting = setting.getFtpSetting();
+            ftpHostname.setText(ftpSetting.getHostname());
+            ftpPort.setText(String.valueOf(ftpSetting.getPort()));
+            ftpLogin.setText(ftpSetting.getLogin());
+            ftpPassword.setText(ftpSetting.getPassword());
+            ftpWorkingDirectory.setText(ftpSetting.getWorkingDirectory());
+            GallerySetting gallerySetting = setting.getGallerySetting();
+            imageWidth.setText(String.valueOf(gallerySetting.getImageWidth()));
+            thumbnailWidth.setText(String.valueOf(gallerySetting.getThumbnailWidth()));
         } catch (SettingException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        FtpSetting ftpSetting = setting.getFtpSetting();
-        ftpHostname.setText(ftpSetting.getHostname());
-        ftpPort.setText(String.valueOf(ftpSetting.getPort()));
-        ftpLogin.setText(ftpSetting.getLogin());
-        ftpPassword.setText(ftpSetting.getPassword());
-        ftpWorkingDirectory.setText(ftpSetting.getWorkingDirectory());
     }
 
     public void testButtonAction(ActionEvent event) {

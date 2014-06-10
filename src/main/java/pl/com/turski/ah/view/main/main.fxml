@@ -47,12 +47,12 @@
         </rowConstraints>
       </GridPane>
       <Separator prefWidth="200.0" />
-      <HBox fx:id="stepsHBox" alignment="CENTER_RIGHT" prefHeight="61.0" prefWidth="640.0" style="-fx-spacing: 10px; -fx-padding: 10px; -fx-background-color: #efefef;" VBox.vgrow="NEVER">
+      <FlowPane fx:id="actionPanel" alignment="CENTER_RIGHT" columnHalignment="RIGHT" prefHeight="60.0" prefWidth="640.0" style="-fx-background-color: #efefef; -fx-padding: 10px; -fx-hgap: 10px; -fx-vgap: 10px;" VBox.vgrow="NEVER">
          <children>
-            <Button fx:id="previousButton" mnemonicParsing="false" onAction="#previousButtonAction" text="Wstecz" visible="false" />
-            <Button fx:id="nextButton" defaultButton="true" mnemonicParsing="false" onAction="#nextButtonAction" text="Dalej" />
-            <Button fx:id="finishButton" defaultButton="true" mnemonicParsing="false" onAction="#finishButtonAction" text="Zakończ" visible="false" />
+            <Button fx:id="previousButton" mnemonicParsing="false" onAction="#previousButtonAction" text="Wstecz" />
+            <Button fx:id="nextButton" mnemonicParsing="false" onAction="#nextButtonAction" text="Dalej" />
+            <Button fx:id="finishButton" mnemonicParsing="false" onAction="#finishButtonAction" text="Zakończ" />
          </children>
-      </HBox>
+      </FlowPane>
   </children>
 </VBox>

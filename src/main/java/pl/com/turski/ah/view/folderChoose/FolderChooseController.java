@@ -1,4 +1,4 @@
-package pl.com.turski.ah.view.galleryChoose;
+package pl.com.turski.ah.view.folderChoose;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,34 +19,34 @@ import java.util.List;
  * User: Adam
  */
 @Component
-public class GalleryChooseController implements ViewController {
+public class FolderChooseController implements ViewController {
 
     @FXML
-    Button galleryChooseButton;
+    Button folderChooseButton;
     @FXML
-    Label galleryPathLabel;
+    Label folderPathLabel;
     @FXML
-    ListView<String> galleryFileList;
+    ListView<String> fodlerFileList;
     @FXML
     Node view;
 
     private List<File> images;
 
     public void init() {
-        galleryFileList.setTooltip(new Tooltip("Lista zdjęć w wybranym katalogu"));
+        fodlerFileList.setTooltip(new Tooltip("Lista zdjęć w wybranym katalogu"));
     }
 
-    public void galleryChooseButtonAction(ActionEvent event) {
+    public void folderChooseButtonAction(ActionEvent event) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File directory = directoryChooser.showDialog(view.getScene().getWindow());
         if (directory != null) {
             images = Arrays.asList(directory.listFiles(FileUtil.imageFilter));
-            galleryPathLabel.setText(directory.getAbsolutePath());
+            folderPathLabel.setText(directory.getAbsolutePath());
             ObservableList<String> fileList = FXCollections.observableArrayList();
             for (File image : images) {
                 fileList.add(image.getName());
             }
-            galleryFileList.setItems(fileList);
+            fodlerFileList.setItems(fileList);
         }
     }
 
@@ -56,8 +56,8 @@ public class GalleryChooseController implements ViewController {
 
     public void resetView() {
         images = null;
-        galleryFileList.setItems(FXCollections.<String>emptyObservableList());
-        galleryPathLabel.setText("");
+        fodlerFileList.setItems(FXCollections.<String>emptyObservableList());
+        folderPathLabel.setText("");
     }
 
     public List<File> getImages() {

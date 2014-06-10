@@ -9,16 +9,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.controlsfx.dialog.Dialogs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import pl.com.turski.ah.model.view.Step;
 import pl.com.turski.ah.view.ViewController;
 import pl.com.turski.ah.view.about.AboutController;
-import pl.com.turski.ah.view.galleryChoose.GalleryChooseController;
+import pl.com.turski.ah.view.folderChoose.FolderChooseController;
+import pl.com.turski.ah.view.galleryCreate.GalleryCreateController;
 import pl.com.turski.ah.view.setting.SettingController;
 
 import java.io.File;
@@ -38,7 +40,7 @@ public class MainController implements ViewController {
     @FXML
     GridPane contentGrid;
     @FXML
-    HBox stepsHBox;
+    FlowPane actionPanel;
     @FXML
     Button previousButton;
     @FXML
@@ -49,17 +51,19 @@ public class MainController implements ViewController {
     @Autowired
     private ApplicationContext applicationContext;
     @Autowired
-    private GalleryChooseController galleryChooseController;
+    private FolderChooseController folderChooseController;
+    @Autowired
+    private GalleryCreateController galleryCreateController;
 
     private Step step;
 
     public void init() {
         contentGrid.getChildren().clear();
-        stepsHBox.getChildren().clear();
-        stepsHBox.getChildren().add(nextButton);
-        step = Step.GALLERY_CHOOSE;
+        actionPanel.getChildren().clear();
+        actionPanel.getChildren().add(nextButton);
+        step = Step.FOLDER_CHOOSE;
         stepTitle.setText(step.getStepTitle());
-        contentGrid.add(galleryChooseController.getView(), 0, 0);
+        contentGrid.add(folderChooseController.getView(), 0, 0);
     }
 
     public void menuSettingAction(ActionEvent event) {
@@ -91,11 +95,35 @@ public class MainController implements ViewController {
     }
 
     public void previousButtonAction(ActionEvent event) {
-        //To change body of created methods use File | Settings | File Templates.
+        if (step == Step.GALLERY_CREATE) {
+            step = Step.FOLDER_CHOOSE;
+            contentGrid.getChildren().clear();
+            contentGrid.add(folderChooseController.getView(), 0, 0);
+            actionPanel.getChildren().clear();
+            actionPanel.getChildren().add(nextButton);
+            stepTitle.setText(step.getStepTitle());
+        }
+
     }
 
     public void nextButtonAction(ActionEvent event) {
-        List<File> images = galleryChooseController.getImages();
+        if (step == Step.FOLDER_CHOOSE) {
+            List<File> images = folderChooseController.getImages();
+            if (images == null) {
+                Dialogs.create().message("Nie wybrałeś żadnego folderu").lightweight().showError();
+            } else if (images.isEmpty()) {
+                Dialogs.create().message("Wybrany folder nie zawiera żadnych zdjęć").lightweight().showError();
+            } else {
+                step = Step.GALLERY_CREATE;
+                stepTitle.setText(step.getStepTitle());
+                contentGrid.getChildren().clear();
+                contentGrid.add(galleryCreateController.getView(), 0, 0);
+                actionPanel.getChildren().clear();
+                actionPanel.getChildren().add(previousButton);
+                actionPanel.getChildren().add(nextButton);
+            }
+        }
+
     }
 
     public void finishButtonAction(ActionEvent event) {

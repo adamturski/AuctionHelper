@@ -1,4 +1,4 @@
-package pl.com.turski.ah.model.ftp;
+package pl.com.turski.ah.model.setting;
 
 /**
  * User: Adam

@@ -2,14 +2,17 @@
 <!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
         "http://castor.org/mapping.dtd">
 <mapping>
-    <class name="pl.com.turski.ah.model.Setting">
+    <class name="pl.com.turski.ah.model.setting.Setting">
         <map-to xml="setting"/>
 
-        <field name="ftpSetting" type="pl.com.turski.ah.model.ftp.FtpSetting">
+        <field name="ftpSetting" type="pl.com.turski.ah.model.setting.FtpSetting">
             <bind-xml name="ftpSetting" node="element"/>
         </field>
+        <field name="gallerySetting" type="pl.com.turski.ah.model.setting.GallerySetting">
+            <bind-xml name="gallerySetting" node="element"/>
+        </field>
     </class>
-    <class name="pl.com.turski.ah.model.ftp.FtpSetting">
+    <class name="pl.com.turski.ah.model.setting.FtpSetting">
         <map-to xml="ftpSetting"/>
         <field name="hostname" type="string">
             <bind-xml name="hostname" node="element"/>
@@ -25,6 +28,15 @@
         </field>
         <field name="workingDirectory" type="string">
             <bind-xml name="workingDirectory" node="element"/>
+        </field>
+    </class>
+    <class name="pl.com.turski.ah.model.setting.GallerySetting">
+        <map-to xml="gallerySetting"/>
+        <field name="imageWidth" type="integer">
+            <bind-xml name="imageWidth" node="element"/>
+        </field>
+        <field name="thumbnailWidth" type="integer">
+            <bind-xml name="thumbnailWidth" node="element"/>
         </field>
     </class>
 
