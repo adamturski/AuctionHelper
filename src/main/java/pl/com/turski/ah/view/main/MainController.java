@@ -110,9 +110,9 @@ public class MainController implements ViewController {
         if (step == Step.FOLDER_CHOOSE) {
             List<File> images = folderChooseController.getImages();
             if (images == null) {
-                Dialogs.create().message("Nie wybrałeś żadnego folderu").lightweight().showError();
+                Dialogs.create().title("Błąd").message("Nie wybrałeś żadnego folderu").lightweight().showError();
             } else if (images.isEmpty()) {
-                Dialogs.create().message("Wybrany folder nie zawiera żadnych zdjęć").lightweight().showError();
+                Dialogs.create().title("Błąd").message("Wybrany folder nie zawiera żadnych zdjęć").lightweight().showError();
             } else {
                 step = Step.GALLERY_CREATE;
                 stepTitle.setText(step.getStepTitle());
