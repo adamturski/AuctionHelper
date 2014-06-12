@@ -9,7 +9,7 @@
         <constructor-arg value="main/main.fxml"/>
     </bean>
 
-    <bean id="folderChooseController" class="pl.com.turski.ah.view.folderChoose.FolderChooseController"
+    <bean id="folderChooseController" class="pl.com.turski.ah.view.directoryChoose.DirectoryChooseController"
           factory-bean="fxmlLoader"
           factory-method="load">
         <constructor-arg value="folderChoose/folderChoose.fxml"/>
