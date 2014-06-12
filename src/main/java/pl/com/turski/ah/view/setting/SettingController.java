@@ -118,7 +118,10 @@ public class SettingController implements ViewController, Initializable {
             ftpSetting.setLogin(ftpLogin.getText());
             ftpSetting.setPassword(ftpPassword.getText());
             ftpSetting.setWorkingDirectory(ftpWorkingDirectory.getText());
-            settingService.saveSettings(ftpSetting);
+            GallerySetting gallerySetting = new GallerySetting();
+            gallerySetting.setImageWidth(Integer.parseInt(imageWidth.getText()));
+            gallerySetting.setThumbnailWidth(Integer.parseInt(thumbnailWidth.getText()));
+            settingService.saveSettings(ftpSetting, gallerySetting);
         } catch (SettingException e) {
             LOG.error("SettingException occured during save settings", e);
         }
