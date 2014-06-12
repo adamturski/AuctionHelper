@@ -17,6 +17,6 @@
             <Label text="Lista zdjęć w katalogu" />
          </children>
       </HBox>
-      <ListView fx:id="fodlerFileList" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+      <ListView fx:id="folderFileList" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
    </children>
 </VBox>

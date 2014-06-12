@@ -5,13 +5,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
 import javafx.stage.DirectoryChooser;
+import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.springframework.stereotype.Component;
-import pl.com.turski.ah.util.FileUtil;
 import pl.com.turski.ah.view.ViewController;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,27 +30,29 @@ public class FolderChooseController implements ViewController {
     @FXML
     Label folderPathLabel;
     @FXML
-    ListView<String> fodlerFileList;
+    ListView<String> folderFileList;
     @FXML
     Node view;
 
     private List<File> images;
+    private File rootDirectory;
 
     public void init() {
-        fodlerFileList.setTooltip(new Tooltip("Lista zdjęć w wybranym katalogu"));
+        folderFileList.setTooltip(new Tooltip("Lista zdjęć w wybranym katalogu"));
     }
 
     public void folderChooseButtonAction(ActionEvent event) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File directory = directoryChooser.showDialog(view.getScene().getWindow());
         if (directory != null) {
-            images = Arrays.asList(directory.listFiles(FileUtil.imageFilter));
+            rootDirectory = directory;
+            images = Arrays.asList(directory.listFiles((FileFilter) new SuffixFileFilter(Arrays.asList(".jpg", ".jpeg"))));
             folderPathLabel.setText(directory.getAbsolutePath());
             ObservableList<String> fileList = FXCollections.observableArrayList();
             for (File image : images) {
                 fileList.add(image.getName());
             }
-            fodlerFileList.setItems(fileList);
+            folderFileList.setItems(fileList);
         }
     }
 
@@ -56,7 +62,7 @@ public class FolderChooseController implements ViewController {
 
     public void resetView() {
         images = null;
-        fodlerFileList.setItems(FXCollections.<String>emptyObservableList());
+        folderFileList.setItems(FXCollections.<String>emptyObservableList());
         folderPathLabel.setText("");
     }
 
@@ -64,5 +70,7 @@ public class FolderChooseController implements ViewController {
         return images;
     }
 
-
+    public File getRootDirectory() {
+        return rootDirectory;
+    }
 }
