@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" style="-fx-padding: 10px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.com.turski.ah.view.sendToFtp.SendToFtpController">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="580.0" style="-fx-spacing: 10px;" VBox.vgrow="NEVER">
+         <children>
+            <Button fx:id="sendButton" mnemonicParsing="false" onAction="#sendButtonAction" text="Wyślij na serwer FTP" />
+         </children>
+      </HBox>
+      <VBox fx:id="progressPane" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" visible="false" VBox.vgrow="ALWAYS">
+         <children>
+            <Label fx:id="progressInfoLabel" text="Label" />
+            <ProgressBar fx:id="progressBar" prefWidth="200.0" progress="0.0" />
+         </children>
+      </VBox>
+   </children>
+</VBox>
