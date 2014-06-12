@@ -164,7 +164,8 @@ public class MainController implements ViewController {
     }
 
     public void finishButtonAction(ActionEvent event) {
-        //To change body of created methods use File | Settings | File Templates.
+        folderChooseController.resetView();
+        galleryCreateController.resetView();
     }
 
 
