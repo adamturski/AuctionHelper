@@ -23,7 +23,7 @@ import pl.com.turski.ah.core.setting.SettingManager;
 import pl.com.turski.ah.model.view.Step;
 import pl.com.turski.ah.view.ViewController;
 import pl.com.turski.ah.view.about.AboutController;
-import pl.com.turski.ah.view.folderChoose.FolderChooseController;
+import pl.com.turski.ah.view.directoryChoose.DirectoryChooseController;
 import pl.com.turski.ah.view.galleryCreate.GalleryCreateController;
 import pl.com.turski.ah.view.setting.SettingController;
 
@@ -60,7 +60,7 @@ public class MainController implements ViewController {
     @Autowired
     private ApplicationContext applicationContext;
     @Autowired
-    private FolderChooseController folderChooseController;
+    private DirectoryChooseController directoryChooseController;
     @Autowired
     private GalleryCreateController galleryCreateController;
 
@@ -75,7 +75,7 @@ public class MainController implements ViewController {
             actionPanel.getChildren().add(nextButton);
             step = Step.FOLDER_CHOOSE;
             stepTitle.setText(step.getStepTitle());
-            contentGrid.add(folderChooseController.getView(), 0, 0);
+            contentGrid.add(directoryChooseController.getView(), 0, 0);
         }
     }
 
@@ -121,11 +121,16 @@ public class MainController implements ViewController {
         return view;
     }
 
+    @Override
+    public void resetView() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     public void previousButtonAction(ActionEvent event) {
         if (step == Step.GALLERY_CREATE) {
             step = Step.FOLDER_CHOOSE;
             contentGrid.getChildren().clear();
-            contentGrid.add(folderChooseController.getView(), 0, 0);
+            contentGrid.add(directoryChooseController.getView(), 0, 0);
             actionPanel.getChildren().clear();
             actionPanel.getChildren().add(nextButton);
             stepTitle.setText(step.getStepTitle());
@@ -143,8 +148,8 @@ public class MainController implements ViewController {
 
     public void nextButtonAction(ActionEvent event) {
         if (step == Step.FOLDER_CHOOSE) {
-            List<File> images = folderChooseController.getImages();
-            File rootFolder = folderChooseController.getRootDirectory();
+            List<File> images = directoryChooseController.getImages();
+            File rootFolder = directoryChooseController.getImagesDirectory();
             if (images == null) {
                 Dialogs.create().title("Błąd").message("Nie wybrałeś żadnego folderu").lightweight().showError();
             } else if (images.isEmpty()) {
@@ -164,7 +169,7 @@ public class MainController implements ViewController {
     }
 
     public void finishButtonAction(ActionEvent event) {
-        folderChooseController.resetView();
+        directoryChooseController.resetView();
         galleryCreateController.resetView();
     }
 

@@ -7,4 +7,5 @@ import javafx.scene.Node;
  */
 public interface ViewController {
     public Node getView();
+    public void resetView();
 }
