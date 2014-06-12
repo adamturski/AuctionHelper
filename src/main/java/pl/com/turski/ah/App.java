@@ -13,17 +13,11 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
-        MainController mainController =context.getBean(MainController.class);
-        mainController.init();
+        MainController mainController = context.getBean(MainController.class);
         primaryStage.setScene(new Scene((Parent) mainController.getView(), 800, 600));
         primaryStage.setTitle("AuctionHelper 1.0");
         primaryStage.show();
-//        SettingService settingService = context.getBean(SettingService.class);
-//        try {
-//            settingService.loadSettings();
-//        } catch (SettingException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        }
+        mainController.init();
     }
 
     public static void main(String[] args) {

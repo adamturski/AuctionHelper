@@ -14,8 +14,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.controlsfx.dialog.Dialogs;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.oxm.XmlMappingException;
+import pl.com.turski.ah.core.setting.SettingManager;
 import pl.com.turski.ah.model.view.Step;
 import pl.com.turski.ah.view.ViewController;
 import pl.com.turski.ah.view.about.AboutController;
@@ -24,12 +28,15 @@ import pl.com.turski.ah.view.galleryCreate.GalleryCreateController;
 import pl.com.turski.ah.view.setting.SettingController;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
  * User: Adam
  */
 public class MainController implements ViewController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(MainController.class);
 
     @FXML
     Node view;
@@ -49,6 +56,8 @@ public class MainController implements ViewController {
     Button finishButton;
 
     @Autowired
+    private SettingManager settingManager;
+    @Autowired
     private ApplicationContext applicationContext;
     @Autowired
     private FolderChooseController folderChooseController;
@@ -58,12 +67,30 @@ public class MainController implements ViewController {
     private Step step;
 
     public void init() {
-        contentGrid.getChildren().clear();
+        LOG.info("Inicjalizacja głównego kontrolera");
         actionPanel.getChildren().clear();
-        actionPanel.getChildren().add(nextButton);
-        step = Step.FOLDER_CHOOSE;
-        stepTitle.setText(step.getStepTitle());
-        contentGrid.add(folderChooseController.getView(), 0, 0);
+        contentGrid.getChildren().clear();
+        boolean settingInitialized = initSettings();
+        if (settingInitialized) {
+            actionPanel.getChildren().add(nextButton);
+            step = Step.FOLDER_CHOOSE;
+            stepTitle.setText(step.getStepTitle());
+            contentGrid.add(folderChooseController.getView(), 0, 0);
+        }
+    }
+
+    private boolean initSettings() {
+        try {
+            settingManager.loadSettings();
+            return true;
+        } catch (XmlMappingException e) {
+            LOG.error("Wystąpił błąd mapowania pliku ustawień", e);
+            Dialogs.create().title("Błąd").message("Wystąpił błąd mapowania pliku ustawień").lightweight().showError();
+        } catch (IOException e) {
+            LOG.error("Wystąpił błąd IO podczas wczytywania pliku ustawień");
+            Dialogs.create().title("Błąd").message("Wystąpił błąd IO podczas wczytywania pliku ustawień").lightweight().showError();
+        }
+        return false;
     }
 
     public void menuSettingAction(ActionEvent event) {
@@ -102,6 +129,14 @@ public class MainController implements ViewController {
             actionPanel.getChildren().clear();
             actionPanel.getChildren().add(nextButton);
             stepTitle.setText(step.getStepTitle());
+        } else if (step == Step.SEND_TO_FTP) {
+            step = Step.GALLERY_CREATE;
+            contentGrid.getChildren().clear();
+            //contentGrid.add(folderChooseController.getView(), 0, 0);
+            actionPanel.getChildren().clear();
+            actionPanel.getChildren().add(previousButton);
+            actionPanel.getChildren().add(nextButton);
+            stepTitle.setText(step.getStepTitle());
         }
 
     }
@@ -109,6 +144,7 @@ public class MainController implements ViewController {
     public void nextButtonAction(ActionEvent event) {
         if (step == Step.FOLDER_CHOOSE) {
             List<File> images = folderChooseController.getImages();
+            File rootFolder = folderChooseController.getRootDirectory();
             if (images == null) {
                 Dialogs.create().title("Błąd").message("Nie wybrałeś żadnego folderu").lightweight().showError();
             } else if (images.isEmpty()) {
@@ -116,6 +152,7 @@ public class MainController implements ViewController {
             } else {
                 step = Step.GALLERY_CREATE;
                 stepTitle.setText(step.getStepTitle());
+                galleryCreateController.initController(rootFolder, images);
                 contentGrid.getChildren().clear();
                 contentGrid.add(galleryCreateController.getView(), 0, 0);
                 actionPanel.getChildren().clear();
