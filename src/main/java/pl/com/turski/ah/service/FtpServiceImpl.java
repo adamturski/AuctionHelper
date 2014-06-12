@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import pl.com.turski.ah.model.ftp.FtpConnectionStatusCode;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -29,7 +30,7 @@ public class FtpServiceImpl implements FtpService {
     @Override
     public FtpConnectionStatusCode testConnection(String hostname, Integer port, String login, String password, String workingDirectory) {
         try {
-            ftpClient.connect(hostname,port);
+            ftpClient.connect(hostname, port);
             boolean loginSucessfull = ftpClient.login(login, password);
             if (!loginSucessfull) {
                 LOG.info("Ftp client cannot login during connection test");
@@ -63,5 +64,14 @@ public class FtpServiceImpl implements FtpService {
     @Override
     public void upload(List<BufferedImage> images) {
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void upload(File file) throws IllegalArgumentException, IOException{
+        if(file==null){
+            throw new IllegalArgumentException("Przekazano niepoprawne argumenty");
+        }
+        LOG.info("Uploading File[{}]", file);
+//        ftpClient.storeFile(new FileInputStream(file))
     }
 }
