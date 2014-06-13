@@ -11,10 +11,10 @@
             <Button fx:id="galleryCreateButton" mnemonicParsing="false" onAction="#galleryCreateButtonAction" text="Generuj galerię" />
          </children>
       </HBox>
-      <VBox fx:id="progressPane" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" visible="false" VBox.vgrow="ALWAYS">
+      <VBox fx:id="progressPane" alignment="CENTER" prefHeight="200.0" prefWidth="100.0"  VBox.vgrow="ALWAYS">
          <children>
-            <Label fx:id="progressInfoLabel" text="Label" />
-            <ProgressBar fx:id="progressBar" prefWidth="200.0" progress="0.0" />
+            <Label fx:id="progressInfoLabel" />
+            <ProgressBar fx:id="progressBar" prefWidth="200.0" progress="0.0" visible="false" />
          </children>
       </VBox>
    </children>

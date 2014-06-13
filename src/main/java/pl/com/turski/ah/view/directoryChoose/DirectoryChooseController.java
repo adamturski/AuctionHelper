@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.DirectoryChooser;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import pl.com.turski.ah.view.ViewController;
 
@@ -23,6 +25,8 @@ import java.util.List;
  */
 @Component
 public class DirectoryChooseController implements ViewController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(DirectoryChooseController.class);
 
     @FXML
     Button directoryChooseButton;
@@ -40,6 +44,7 @@ public class DirectoryChooseController implements ViewController {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File directory = directoryChooser.showDialog(view.getScene().getWindow());
         if (directory != null) {
+            LOG.info("Użytkownik wybrał katalog {}", directory);
             imagesDirectory = directory;
             images = Arrays.asList(directory.listFiles((FileFilter) new SuffixFileFilter(Arrays.asList(".jpg", ".jpeg"))));
             directoryPathLabel.setText(directory.getAbsolutePath());

@@ -27,4 +27,9 @@ public class AboutController implements ViewController {
     public Node getView() {
         return view;
     }
+
+    @Override
+    public void resetView() {
+
+    }
 }

@@ -23,6 +23,22 @@
         <property name="viewPath" value="/pl/com/turski/ah/view/"/>
     </bean>
 
+    <bean id="galleryTemplate" class="java.lang.String">
+        <constructor-arg>
+            <bean class="org.springframework.util.FileCopyUtils" factory-method="copyToByteArray">
+                <constructor-arg value="classpath:galleryTemplate.html" type="java.io.InputStream"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <bean id="arrowLeftFile" class="org.springframework.core.io.ClassPathResource">
+        <constructor-arg value="arrowLeft.png"/>
+    </bean>
+
+    <bean id="arrowRightFile" class="org.springframework.core.io.ClassPathResource">
+        <constructor-arg value="arrowRight.png"/>
+    </bean>
+
     <bean id="ftpClient" class="org.apache.commons.net.ftp.FTPClient"/>
 
     <import resource="view-context.xml"/>

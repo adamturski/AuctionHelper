@@ -2,29 +2,25 @@ package pl.com.turski.ah.view.setting;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.com.turski.ah.model.setting.GallerySetting;
-import pl.com.turski.ah.model.setting.Setting;
-import pl.com.turski.ah.model.exception.SettingException;
+import pl.com.turski.ah.core.setting.SettingManager;
 import pl.com.turski.ah.model.ftp.FtpConnectionStatusCode;
 import pl.com.turski.ah.model.setting.FtpSetting;
+import pl.com.turski.ah.model.setting.GallerySetting;
 import pl.com.turski.ah.service.FtpService;
-import pl.com.turski.ah.service.SettingService;
 import pl.com.turski.ah.view.ViewController;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
 /**
  * User: Adam
  */
-public class SettingController implements ViewController, Initializable {
+public class SettingController implements ViewController {
 
     private static final Logger LOG = LoggerFactory.getLogger(SettingController.class);
 
@@ -70,31 +66,25 @@ public class SettingController implements ViewController, Initializable {
     TextField newVariableValue;
 
     @Autowired
-    private SettingService settingService;
+    private SettingManager settingManager;
     @Autowired
     private FtpService ftpService;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void init() {
         attributesTable.setPlaceholder(new Label("Nie znaleziono żadnych atrybutów w szablonie"));
         variablesTable.setPlaceholder(new Label("Nie zdefiniowano żadnych zmiennych"));
     }
 
     public void initSetting() {
-        try {
-            Setting setting = settingService.loadSettings();
-            FtpSetting ftpSetting = setting.getFtpSetting();
-            ftpHostname.setText(ftpSetting.getHostname());
-            ftpPort.setText(String.valueOf(ftpSetting.getPort()));
-            ftpLogin.setText(ftpSetting.getLogin());
-            ftpPassword.setText(ftpSetting.getPassword());
-            ftpWorkingDirectory.setText(ftpSetting.getWorkingDirectory());
-            GallerySetting gallerySetting = setting.getGallerySetting();
-            imageWidth.setText(String.valueOf(gallerySetting.getImageWidth()));
-            thumbnailWidth.setText(String.valueOf(gallerySetting.getThumbnailWidth()));
-        } catch (SettingException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        FtpSetting ftpSetting = settingManager.getFtpSetting();
+        ftpHostname.setText(ftpSetting.getHostname());
+        ftpPort.setText(String.valueOf(ftpSetting.getPort()));
+        ftpLogin.setText(ftpSetting.getLogin());
+        ftpPassword.setText(ftpSetting.getPassword());
+        ftpWorkingDirectory.setText(ftpSetting.getWorkingDirectory());
+        GallerySetting gallerySetting = settingManager.getGallerySetting();
+        imageWidth.setText(String.valueOf(gallerySetting.getImageWidth()));
+        thumbnailWidth.setText(String.valueOf(gallerySetting.getThumbnailWidth()));
     }
 
     public void testButtonAction(ActionEvent event) {
@@ -121,9 +111,9 @@ public class SettingController implements ViewController, Initializable {
             GallerySetting gallerySetting = new GallerySetting();
             gallerySetting.setImageWidth(Integer.parseInt(imageWidth.getText()));
             gallerySetting.setThumbnailWidth(Integer.parseInt(thumbnailWidth.getText()));
-            settingService.saveSettings(ftpSetting, gallerySetting);
-        } catch (SettingException e) {
-            LOG.error("SettingException occured during save settings", e);
+            settingManager.saveSettings(ftpSetting, gallerySetting);
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
 
@@ -137,5 +127,8 @@ public class SettingController implements ViewController, Initializable {
         return view;
     }
 
+    @Override
+    public void resetView() {
 
+    }
 }

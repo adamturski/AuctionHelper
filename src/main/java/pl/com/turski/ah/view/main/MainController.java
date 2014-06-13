@@ -149,15 +149,15 @@ public class MainController implements ViewController {
     public void nextButtonAction(ActionEvent event) {
         if (step == Step.FOLDER_CHOOSE) {
             List<File> images = directoryChooseController.getImages();
-            File rootFolder = directoryChooseController.getImagesDirectory();
-            if (images == null) {
+            File imagesDirectory = directoryChooseController.getImagesDirectory();
+            if (imagesDirectory == null) {
                 Dialogs.create().title("Błąd").message("Nie wybrałeś żadnego folderu").lightweight().showError();
-            } else if (images.isEmpty()) {
+            } else if (images == null || images.isEmpty()) {
                 Dialogs.create().title("Błąd").message("Wybrany folder nie zawiera żadnych zdjęć").lightweight().showError();
             } else {
                 step = Step.GALLERY_CREATE;
                 stepTitle.setText(step.getStepTitle());
-                galleryCreateController.initController(rootFolder, images);
+                galleryCreateController.init(imagesDirectory, images);
                 contentGrid.getChildren().clear();
                 contentGrid.add(galleryCreateController.getView(), 0, 0);
                 actionPanel.getChildren().clear();
