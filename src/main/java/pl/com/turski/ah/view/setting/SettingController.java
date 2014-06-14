@@ -112,6 +112,8 @@ public class SettingController implements ViewController {
             gallerySetting.setImageWidth(Integer.parseInt(imageWidth.getText()));
             gallerySetting.setThumbnailWidth(Integer.parseInt(thumbnailWidth.getText()));
             settingManager.saveSettings(ftpSetting, gallerySetting);
+            Stage stage = (Stage) view.getScene().getWindow();
+            stage.close();
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

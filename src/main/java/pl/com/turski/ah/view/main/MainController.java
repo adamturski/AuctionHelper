@@ -25,10 +25,12 @@ import pl.com.turski.ah.view.ViewController;
 import pl.com.turski.ah.view.about.AboutController;
 import pl.com.turski.ah.view.directoryChoose.DirectoryChooseController;
 import pl.com.turski.ah.view.galleryCreate.GalleryCreateController;
+import pl.com.turski.ah.view.sendToFtp.SendToFtpController;
 import pl.com.turski.ah.view.setting.SettingController;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -63,6 +65,8 @@ public class MainController implements ViewController {
     private DirectoryChooseController directoryChooseController;
     @Autowired
     private GalleryCreateController galleryCreateController;
+    @Autowired
+    private SendToFtpController sendToFtpController;
 
     private Step step;
 
@@ -137,7 +141,7 @@ public class MainController implements ViewController {
         } else if (step == Step.SEND_TO_FTP) {
             step = Step.GALLERY_CREATE;
             contentGrid.getChildren().clear();
-            //contentGrid.add(folderChooseController.getView(), 0, 0);
+            contentGrid.add(galleryCreateController.getView(), 0, 0);
             actionPanel.getChildren().clear();
             actionPanel.getChildren().add(previousButton);
             actionPanel.getChildren().add(nextButton);
@@ -163,6 +167,22 @@ public class MainController implements ViewController {
                 actionPanel.getChildren().clear();
                 actionPanel.getChildren().add(previousButton);
                 actionPanel.getChildren().add(nextButton);
+            }
+        } else if (step == Step.GALLERY_CREATE) {
+            File imagesDirectory = galleryCreateController.getImagesDirectory();
+            File galleryDirectory = galleryCreateController.getGalleryDirectory();
+            boolean galleryCreated = galleryCreateController.isDone();
+            if (galleryCreated) {
+                step = Step.SEND_TO_FTP;
+                stepTitle.setText(step.getStepTitle());
+                sendToFtpController.init(imagesDirectory, Arrays.asList(galleryDirectory.listFiles()));
+                contentGrid.getChildren().clear();
+                contentGrid.add(sendToFtpController.getView(), 0, 0);
+                actionPanel.getChildren().clear();
+                actionPanel.getChildren().add(previousButton);
+                actionPanel.getChildren().add(nextButton);
+            } else {
+                Dialogs.create().title("Błąd").message("Nie wygenerowałeś galerii").lightweight().showError();
             }
         }
 

@@ -1,4 +1,4 @@
-package pl.com.turski.ah.model.exception;
+package pl.com.turski.ah.exception;
 
 /**
  * User: Adam

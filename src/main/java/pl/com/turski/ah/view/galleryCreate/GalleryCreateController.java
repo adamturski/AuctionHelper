@@ -1,15 +1,13 @@
 package pl.com.turski.ah.view.galleryCreate;
 
+import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.VBox;
 import org.controlsfx.dialog.Dialogs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,26 +18,20 @@ import pl.com.turski.ah.view.ViewController;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
 /**
  * User: Adam
  */
 @Component
-public class GalleryCreateController implements ViewController, Initializable {
+public class GalleryCreateController implements ViewController {
 
     private static final Logger LOG = LoggerFactory.getLogger(GalleryCreateController.class);
 
     @FXML
     Button galleryCreateButton;
     @FXML
-    VBox progressPane;
-    @FXML
-    Label progressInfoLabel;
-    @FXML
-    ProgressBar progressBar;
+    Label statusLabel;
     @FXML
     Node view;
 
@@ -49,13 +41,40 @@ public class GalleryCreateController implements ViewController, Initializable {
     private File imagesDirectory;
     private List<File> images;
     private File galleryDirectory;
-    private boolean galleryCreated;
+    private boolean done;
 
-    private Service createGallery;
+    public void init(File imagesDirectory, List<File> images) {
+        if (!imagesDirectory.equals(this.imagesDirectory)) {
+            done = false;
+            statusLabel.setText("");
+        }
+        this.imagesDirectory = imagesDirectory;
+        this.images = images;
+    }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        createGallery = new Service() {
+    public void galleryCreateButtonAction(ActionEvent event) {
+        createGalleryDirectory();
+        createGallery();
+    }
+
+    private void createGalleryDirectory() {
+        try {
+            done = false;
+            galleryDirectory = new File(imagesDirectory, "galeria");
+            boolean galleryDirectoryCreated = galleryDirectory.mkdir();
+            if (galleryDirectoryCreated) {
+                LOG.info("Utworzono katalog galerii");
+            } else {
+                LOG.warn("Nie utworzono katalogu galerii. Być może taki katalog istnieje");
+            }
+        } catch (SecurityException e) {
+            LOG.error("Wystąpił błąd podczas tworzenia katalogu galerii", e);
+            Dialogs.create().title("Błąd").message("Wystąpił błąd podczas tworzenia katalogu galerii").lightweight().showError();
+        }
+    }
+
+    private void createGallery() {
+        Service createGallery = new Service() {
             @Override
             protected Task createTask() {
                 return new Task() {
@@ -76,10 +95,11 @@ public class GalleryCreateController implements ViewController, Initializable {
                                 } else {
                                     imageService.createGallery(galleryDirectory, image, images.get(idx - 1), images.get(idx + 1));
                                 }
-                                updateProgress(idx++, images.size());
+                                updateProgress(idx + 1, images.size());
+                                idx++;
                             }
-                            updateMessage(String.format("Liczba przetworzonych zdjęć: %d", images.size()));
-                            galleryCreated = true;
+                            Platform.runLater(() -> statusLabel.setText(String.format("Liczba przetworzonych zdjęć: %d", images.size())));
+                            done = true;
                         } catch (IOException e) {
                             LOG.error("Wystąpił błąd podczas tworzenia galerii", e);
                             Dialogs.create().title("Błąd").message("Wystąpił błąd podczas tworzenia galerii").lightweight().showError();
@@ -89,46 +109,8 @@ public class GalleryCreateController implements ViewController, Initializable {
                 };
             }
         };
-        createGallery.setOnSucceeded(workerStateEvent -> progressBar.setVisible(false));
-        progressBar.progressProperty().bind(createGallery.progressProperty());
-        progressInfoLabel.textProperty().bind(createGallery.messageProperty());
-    }
-
-    public void init(File imagesDirectory, List<File> images) {
-        if (!imagesDirectory.equals(this.imagesDirectory)) {
-            galleryCreated = false;
-        }
-        this.imagesDirectory = imagesDirectory;
-        this.images = images;
-    }
-
-    public void galleryCreateButtonAction(ActionEvent event) {
-        createGalleryDirectory();
-        createGallery();
-    }
-
-    private void createGallery() {
-        progressBar.setVisible(true);
-        if (!createGallery.isRunning()) {
-            createGallery.reset();
-            createGallery.start();
-        }
-    }
-
-    private void createGalleryDirectory() {
-        try {
-            galleryCreated = false;
-            galleryDirectory = new File(imagesDirectory, "galeria");
-            boolean galleryDirectoryCreated = galleryDirectory.mkdir();
-            if (galleryDirectoryCreated) {
-                LOG.info("Utworzono katalog galerii");
-            } else {
-                LOG.warn("Nie utworzono katalogu galerii. Być może taki katalog istnieje");
-            }
-        } catch (SecurityException e) {
-            LOG.error("Wystąpił błąd podczas tworzenia katalogu galerii", e);
-            Dialogs.create().title("Błąd").message("Wystąpił błąd podczas tworzenia katalogu galerii").lightweight().showError();
-        }
+        createGallery.start();
+        Dialogs.create().title("Generowanie galerii").lightweight().showWorkerProgress(createGallery);
     }
 
     public Node getView() {
@@ -138,14 +120,18 @@ public class GalleryCreateController implements ViewController, Initializable {
     public void resetView() {
         imagesDirectory = null;
         images = null;
-        galleryDirectory = null;
-        galleryCreated = false;
-        progressPane.setVisible(false);
-        progressInfoLabel.setText("");
-        progressBar.setProgress(0);
+        done = false;
     }
 
-    public boolean isGalleryCreated() {
-        return galleryCreated;
+    public File getImagesDirectory() {
+        return imagesDirectory;
+    }
+
+    public File getGalleryDirectory() {
+        return galleryDirectory;
+    }
+
+    public boolean isDone() {
+        return done;
     }
 }

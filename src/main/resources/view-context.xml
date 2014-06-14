@@ -21,6 +21,12 @@
         <constructor-arg value="galleryCreate/galleryCreate.fxml"/>
     </bean>
 
+    <bean id="sendToFtpController" class="pl.com.turski.ah.view.sendToFtp.SendToFtpController"
+              factory-bean="fxmlLoader"
+              factory-method="load">
+            <constructor-arg value="sendToFtp/sendToFtp.fxml"/>
+        </bean>
+
 
     <bean id="settingController" class="pl.com.turski.ah.view.setting.SettingController" scope="prototype"
           factory-bean="fxmlLoader" factory-method="load">

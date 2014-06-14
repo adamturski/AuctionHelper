@@ -1,12 +1,13 @@
 package pl.com.turski.ah.view.sendToFtp;
 
+import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.VBox;
 import org.controlsfx.dialog.Dialogs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,6 @@ import pl.com.turski.ah.service.FtpService;
 import pl.com.turski.ah.view.ViewController;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -30,35 +30,57 @@ public class SendToFtpController implements ViewController {
     @FXML
     Button sendButton;
     @FXML
-    VBox progressPane;
-    @FXML
-    Label progressInfoLabel;
-    @FXML
-    ProgressBar progressBar;
+    Label statusLabel;
     @FXML
     Node view;
 
     @Autowired
     private FtpService ftpService;
 
+    private File imagesDirectory;
     private List<File> filesToUpload;
     private boolean done;
 
-    public void init(List<File> filesToUpload) {
+    public void init(File imagesDirectory, List<File> filesToUpload) {
+        if (!filesToUpload.equals(this.filesToUpload)) {
+            done = false;
+            statusLabel.setText("");
+        }
+        this.imagesDirectory = imagesDirectory;
         this.filesToUpload = filesToUpload;
     }
 
     public void sendButtonAction(ActionEvent event) {
-        try {
-            if(filesToUpload==null){
-                LOG.error("Illegal state: filesToUpload=null");
-                Dialogs.create().title("Błąd aplikacji").message("Nie przekazano listy plików do wysłania").showError();
+        Service sendImages = new Service() {
+            @Override
+            protected Task createTask() {
+                return new Task() {
+                    @Override
+                    protected Object call() throws Exception {
+                        try {
+                            done = false;
+                            String ftpGalleryDirectory = imagesDirectory.getName();
+                            ftpService.createGalleryDirectory(ftpGalleryDirectory);
+                            int idx = 0;
+                            for (File file : filesToUpload) {
+                                updateMessage(String.format("Wysyłanie pliku %d/%d (%s)", idx + 1, filesToUpload.size(), file.getName()));
+                                ftpService.send(file);
+                                updateProgress(idx + 1, filesToUpload.size());
+                                idx++;
+                            }
+                            Platform.runLater(() -> statusLabel.setText(String.format("Liczba wysłanych plików: %d", filesToUpload.size())));
+                            done = true;
+                        } catch (Throwable e) {
+                            Platform.runLater(() -> Dialogs.create().title("Błąd").message(e.getMessage()).showError());
+
+                        }
+                        return null;
+                    }
+                };
             }
-            progressPane.setVisible(true);
-            ftpService.upload(filesToUpload.get(0));
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        };
+        sendImages.start();
+        Dialogs.create().title("Wysyłanie plików na serwer FTP").lightweight().showWorkerProgress(sendImages);
     }
 
     public Node getView() {
@@ -67,9 +89,12 @@ public class SendToFtpController implements ViewController {
 
     public void resetView() {
         filesToUpload = null;
+        imagesDirectory = null;
         done = false;
-        progressPane.setVisible(false);
-        progressInfoLabel.setText("");
-        progressBar.setProgress(0);
+        statusLabel.setText("");
+    }
+
+    public boolean isDone() {
+        return done;
     }
 }

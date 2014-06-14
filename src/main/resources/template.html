@@ -1,0 +1,561 @@
+<style type="text/css">
+
+
+* {
+    box-sizing: border-box;
+}
+
+.page {
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+
+.header {
+}
+
+.banner > img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.content {
+    background: url("${resourceUrl}/pattern.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    padding: 0 40px 40px;
+    position: relative;
+}
+
+.title {
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+}
+
+.title-text {
+    border: medium none !important;
+    color: #FFFFFF;
+    font-family: Verdana, sans-serif;
+    font-size: 32px;
+    letter-spacing: 3px;
+    margin: 20px auto;
+    padding: 17px 0;
+    position: relative;
+    text-transform: uppercase;
+}
+
+.title-wrapper {
+    display: inline-block;
+    margin: auto;
+    position: relative;
+}
+
+.technicalData {
+    color: #999999;
+    font-family: Tahoma, sans-serif;
+    font-size: 15px;
+    line-height: 28px;
+    position: relative;
+    text-align: center;
+    vertical-align: top;
+}
+
+.technicalData .label {
+    color: #FFFFFF;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.technicalData .value {
+    display: inline-block;
+}
+
+.equipment {
+    display: block;
+    margin-top: 50px;
+    position: relative;
+    text-align: center;
+}
+
+.map-hint {
+    background: none repeat scroll 0 0 #999999;
+    font-family: Tahoma, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0.5;
+    padding: 5px;
+    position: absolute;
+    text-align: center;
+    z-index: 1002;
+}
+
+.map-hint:hover {
+    z-index: 1002;
+}
+
+.map-link {
+    display: inline-block;
+    position: relative;
+    z-index: 1001;
+}
+
+.map-link:hover {
+    z-index: 999;
+}
+
+.map img {
+    border: 1px solid #FFFFFF;
+    border-radius: 3px;
+    padding: 1px;
+    width: 100%;
+}
+
+.gallery {
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin-top: 20px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.gallery > .gallery-wrapper > .gallery-photo {
+    display: inline-block;
+    position: relative;
+    width: 400px;
+}
+
+.gallery > .gallery-wrapper > .gallery-photo > a {
+    display: block;
+}
+
+.gallery-photo > a > img {
+    border-radius: 5px;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.footer {
+    background: none repeat scroll 0 0 #171717;
+    bottom: 0;
+    color: #C2973C;
+    margin-top: 80px;
+    position: relative;
+    width: 100%;
+}
+
+.footer > .footer-wrapper {
+    padding: 0 0 30px;
+    position: relative;
+    text-align: center;
+}
+
+.footer > .footer-wrapper > .logo {
+    display: block;
+    font-family: Tahoma, sans- serif;
+    font-size: 26px;
+    letter-spacing: 0.5em;
+    padding: 20px 0 10px 16px;
+}
+
+.footer > .footer-wrapper > hr {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #171717;
+    border-radius: 5px;
+    height: 3px;
+    width: 530px;
+}
+
+.footer > .footer-wrapper > .contact {
+    font-family: Tahoma, sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.go-up {
+    background: none repeat scroll 0 0 #171717;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 27px;
+    font-weight: bold;
+    height: 40px;
+    left: 50%;
+    margin: 0 0 0 -20px;
+    overflow: hidden;
+    position: absolute;
+    text-decoration: none;
+    top: -40px;
+    vertical-align: middle;
+    width: 40px;
+}
+
+.go-up > span {
+    display: block;
+    padding: 6px;
+    text-align: center;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.tl {
+    border-right: 2px solid #C2973C;
+    left: 0;
+    top: -2px;
+}
+
+.tr {
+    border-left: 2px solid #C2973C;
+    right: 0;
+    top: -2px;
+}
+
+.bl {
+    border-right: 2px solid #C2973C;
+    bottom: -2px;
+    left: 0;
+}
+
+.br {
+    border-left: 2px solid #C2973C;
+    bottom: -2px;
+    right: 0;
+}
+
+.heading {
+    border-bottom: 2px solid #C2973C;
+    border-top: 2px solid #C2973C;
+    color: #FFFFFF;
+    display: inline-block;
+    font-family: Verdana, sans-serif;
+    font-size: 25px;
+    letter-spacing: 0.3em;
+    line-height: 28px;
+    margin: 20px auto;
+    padding: 17px 0 17px 0.3em;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.heading > span {
+    display: block;
+    margin: 0 -17px;
+}
+
+.heading > .tl, .heading > .tr, .heading > .bl, .heading > .br {
+    background: none repeat scroll 0 0 #272727;
+    display: block;
+    height: 16px;
+    position: absolute;
+}
+
+.llline {
+    left: -90px;
+}
+
+.rline {
+    right: -90px;
+}
+
+.llline, .rline {
+    border-bottom: 1px solid #C2973C;
+    display: block;
+    position: absolute;
+    top: 57px;
+    vertical-align: middle;
+    width: 75px;
+}
+
+.border {
+    border: 3px solid rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    box-shadow: 0 0 0 2px #FFFFFF inset;
+    display: inline-block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.overlay {
+    background: url("${resourceUrl}/overlay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.dark {
+    color: #000000;
+}
+
+.equipment-table td {
+    border-bottom: 1px solid #FFFFFF;
+    color: #999999;
+    font-family: Tahoma, sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.1em;
+    padding: 8px 0;
+    text-align: center;
+}
+
+.equipment-table {
+    border-collapse: collapse;
+    border-style: hidden;
+    width: 100%;
+}
+
+.footer-wrapper > .divider {
+    border-top: 1px groove #FFFFFF;
+    display: inline-block;
+    width: 530px;
+}
+
+.company-info {
+    color: #FFFFFF;
+    display: inline-block;
+    font-family: Verdana, sans-serif;
+    margin: 50px auto 0;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.map {
+    display: inline-block;
+    width: 350px;
+}
+
+.company-info-wrapper {
+    display: inline-block;
+    margin-left: 50px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.company-info-wrapper > div {
+    padding: 5px 0;
+}
+
+.company-info-wrapper strong {
+    color: #C2973C;
+}
+
+
+</style>
+
+<div class="page">
+<div id="start" class="header">
+    <div class="banner">
+        <img src="${resourceUrl}/banner.jpg" alt="baner">
+    </div>
+</div>
+<div class="content">
+    <div class="overlay"></div>
+    <div class="title">
+        <div class="title-wrapper">
+            <div class="llline"></div>
+            <div class="title-text">${title}KOENIGSEG AGERA 3.2 TDI IGŁA</div>
+            <div class="rline"></div>
+        </div>
+    </div>
+    <div class="technicalData">
+        <div class="heading">
+            <span>Dane techniczne</span>
+
+            <div class="tl"></div>
+            <div class="tr"></div>
+            <div class="bl"></div>
+            <div class="br"></div>
+        </div>
+        <div>
+            <div class="label">Przebieg:</div>
+            <div class="value">${carMileage}200 000 km</div>
+        </div>
+        <div>
+            <div class="label">Skrzynia biegów:</div>
+            <div class="value">${carGearbox}manualna</div>
+        </div>
+        <div>
+            <div class="label">Silnik:</div>
+            <div class="value">${carEngine}1.9 TDI</div>
+        </div>
+        <div>
+            <div class="label">Moc:</div>
+            <div class="value">${carPower}150 KM</div>
+        </div>
+        <div>
+            <div class="label">Kolor:</div>
+            <div class="value">${carColor}czerwony</div>
+        </div>
+        <div>
+            <div class="label">Rok produkcji:</div>
+            <div class="value">${carYear}1999</div>
+        </div>
+    </div>
+
+    <div class="company-info">
+        <div class="map">
+            <div class="map-hint">Kliknij aby przejść do Google Maps</div>
+            <a class="map-link"
+               href="https://www.google.pl/maps/place/S%C4%85d+Okr%C4%99gowy/@52.1686567,22.276414,14z/data=!4m2!3m1!1s0x0:0xfadf9c19b53cbc03"><img
+                    src="${resourceUrl}/map.jpg" alt="map"> </a>
+        </div>
+        <div class="company-info-wrapper">
+            <div>Samochody sprzedawane na naszych aukcjach są w 100% sprawne</div>
+            <div>W razie pytań proszę o telefon:<br>
+                <strong>531-101-103</strong><br>
+                lub maila:<br>
+                <strong>exclusive@park.auto.pl</strong></div>
+        </div>
+
+    </div>
+    <div class="clearfix"></div>
+    <div class="equipment">
+        <div class="heading">
+            <span>Wyposażenie</span>
+
+            <div class="tl"></div>
+            <div class="tr"></div>
+            <div class="bl"></div>
+            <div class="br"></div>
+        </div>
+        <div class="equipment-wrapper">
+            <table class="equipment-table">
+                <tbody>
+                ${equipmentTbody}
+                <tr>
+                    <td>elektryczne lusterka</td>
+                    <td>podgrzewane fotele</td>
+                </tr>
+                <tr>
+                    <td>podgrzewane fotele</td>
+                    <td>immobiliser</td>
+                </tr>
+                <tr>
+                    <td>xenony</td>
+                    <td>alufelgi 17"</td>
+                </tr>
+                <tr>
+                    <td>radio odtwarzacz CD</td>
+                    <td>nagłośnienie BOSE</td>
+                </tr>
+                <tr>
+                    <td>radio odtwarzacz CD</td>
+                    <td>nagłośnienie BOSE</td>
+                </tr>
+                <tr>
+                    <td>książka serwisowa</td>
+                    <td>kurtyny boczne</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="gallery">
+    <div class="heading dark">
+        <span>${galleryTitle}KOENIGSEG AGERA</span>
+
+        <div class="tl"></div>
+        <div class="tr"></div>
+        <div class="bl"></div>
+        <div class="br"></div>
+    </div>
+    <div class="gallery-wrapper">
+        ${galleryPhotos}
+        <div class="gallery-photo">
+            <a><img src="resources/image1.jpg" alt="gallery-image">
+
+                <div class="border"></div>
+            </a>
+        </div>
+        <div class="gallery-photo">
+            <a><img src="resources/image2.jpg" alt="gallery-image">
+
+                <div class="border"></div>
+            </a>
+        </div>
+        <div class="gallery-photo">
+            <a><img src="resources/image3.jpg" alt="gallery-image">
+
+                <div class="border"></div>
+            </a>
+        </div>
+        <div class="gallery-photo">
+            <a><img src="resources/image1.jpg" alt="gallery-image">
+
+                <div class="border"></div>
+            </a>
+        </div>
+        <div class="gallery-photo">
+            <a><img src="resources/image2.jpg" alt="gallery-image">
+
+                <div class="border"></div>
+            </a>
+        </div>
+        <div class="gallery-photo">
+            <a><img src="resources/image3.jpg" alt="gallery-image">
+
+                <div class="border"></div>
+            </a>
+        </div>
+        <div class="gallery-photo">
+            <a><img src="resources/image1.jpg" alt="gallery-image">
+
+                <div class="border"></div>
+            </a>
+        </div>
+        <div class="gallery-photo">
+            <a><img src="resources/image2.jpg" alt="gallery-image">
+
+                <div class="border"></div>
+            </a>
+        </div>
+        <div class="gallery-photo">
+            <a><img src="resources/image3.jpg" alt="gallery-image">
+
+                <div class="border"></div>
+            </a>
+        </div>
+        <div class="gallery-photo">
+            <a><img src="resources/image1.jpg" alt="gallery-image">
+
+                <div class="border"></div>
+            </a>
+        </div>
+        <div class="gallery-photo">
+            <a><img src="resources/image2.jpg" alt="gallery-image">
+
+                <div class="border"></div>
+            </a>
+        </div>
+        <div class="gallery-photo">
+            <a><img src="resources/image3.jpg" alt="gallery-image">
+
+                <div class="border"></div>
+            </a>
+        </div>
+
+    </div>
+</div>
+<div class="footer">
+    <a href="#start" class="go-up"><span>^</span></a>
+
+    <div class="footer-wrapper">
+        <div class="logo">EXCLUSIVE PARK AUTO</div>
+        <div class="divider"></div>
+        <div class="contact">
+            Siedlce, ul. Piłsudskiego 1<br>
+            <span class="telephone">tel kom: 531-101-103</span><br>
+            <span class="email">e-mail: exclusive@park.auto.pl</span><br>
+        </div>
+    </div>
+</div>
+</div>

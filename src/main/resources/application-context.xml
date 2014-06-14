@@ -10,7 +10,6 @@
     <context:component-scan base-package="pl.com.turski.ah"/>
 
     <bean id="settingManager" class="pl.com.turski.ah.core.setting.SettingManager">
-        <property name="settingFileName" value="setting.xml"/>
         <property name="marshaller" ref="castorMarshaller"/>
         <property name="unmarshaller" ref="castorMarshaller"/>
     </bean>
@@ -30,6 +29,10 @@
             </bean>
         </constructor-arg>
     </bean>
+
+    <bean id="settingFile" class="org.springframework.core.io.ClassPathResource">
+            <constructor-arg value="setting.xml"/>
+        </bean>
 
     <bean id="arrowLeftFile" class="org.springframework.core.io.ClassPathResource">
         <constructor-arg value="arrowLeft.png"/>

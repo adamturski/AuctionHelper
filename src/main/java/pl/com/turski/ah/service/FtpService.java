@@ -1,11 +1,10 @@
 package pl.com.turski.ah.service;
 
+import pl.com.turski.ah.exception.*;
 import pl.com.turski.ah.model.ftp.FtpConnectionStatusCode;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * User: Adam
@@ -14,7 +13,11 @@ public interface FtpService {
 
     public FtpConnectionStatusCode testConnection(String hostname, Integer port, String login, String password, String workingDirectory);
 
-    public void upload(List<BufferedImage> images);
+    public void connect() throws FtpConnectionException, FtpLoginException;
 
-    public void upload(File file) throws IllegalArgumentException, IOException;
+    public void createGalleryDirectory(String ftpGalleryDirectory) throws FtpConnectionException, FtpLoginException, FtpDirectoryException;
+
+    public void send(File file) throws IOException, FtpConnectionException, FtpLoginException, CommonFileException, FtpStoreFileException;
+
+    public void disconnect();
 }

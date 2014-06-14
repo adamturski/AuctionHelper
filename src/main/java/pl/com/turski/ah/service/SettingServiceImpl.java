@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.com.turski.ah.core.setting.SettingManager;
-import pl.com.turski.ah.model.exception.SettingException;
+import pl.com.turski.ah.exception.SettingException;
 import pl.com.turski.ah.model.setting.FtpSetting;
 import pl.com.turski.ah.model.setting.GallerySetting;
 
