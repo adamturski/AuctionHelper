@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0"
+      prefWidth="600.0" style="-fx-padding: 10px;" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.com.turski.ah.view.fillTemplate.FillTemplateController">
+    <children>
+        <GridPane alignment="CENTER_LEFT" hgap="5.0" vgap="5.0" VBox.vgrow="NEVER">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
+                <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="495.0" minWidth="10.0" prefWidth="298.0"/>
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0"
+                                   prefWidth="175.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints valignment="TOP" vgrow="NEVER"/>
+                <RowConstraints valignment="TOP" vgrow="NEVER"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="60.0" minHeight="200.0" valignment="TOP" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <Label text="Tytuł"/>
+                <TextField fx:id="titleText" GridPane.columnIndex="1"/>
+                <Label text="Przebieg" GridPane.rowIndex="1"/>
+                <TextField fx:id="carMileageText" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Label text="Skrzynia biegów" GridPane.rowIndex="2"/>
+                <TextField fx:id="carGearboxText" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label text="Silnik" GridPane.rowIndex="3"/>
+                <TextField fx:id="carEngineText" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <Label text="Moc" GridPane.rowIndex="4"/>
+                <TextField fx:id="carPowerText" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                <Label text="Kolor" GridPane.rowIndex="5"/>
+                <TextField fx:id="carColorText" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                <Label text="Rok produkcji" GridPane.rowIndex="6"/>
+                <TextField fx:id="carYearText" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                <Label text="Tytuł galerii" GridPane.rowIndex="7"/>
+                <TextField fx:id="galleryTitleText" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                <Label text="Wyposażenie" GridPane.rowIndex="8"/>
+                <TextArea fx:id="equipmentsText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1"
+                          GridPane.rowIndex="8"/>
+
+            </children>
+        </GridPane>
+    </children>
+</VBox>

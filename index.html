@@ -18,7 +18,7 @@
 }
 
 .content {
-    background: url("${resourceUrl}/pattern.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("http://roletytrak.pl/tmp/template/pattern.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
     display: block;
     padding: 0 40px 40px;
     position: relative;
@@ -41,7 +41,7 @@
     position: relative;
     text-transform: uppercase;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: text-bottom;
 }
 
 .title-wrapper {
@@ -190,10 +190,9 @@
 
 .go-up > span {
     display: inline-block;
-    padding: 15px 10px;
+    padding: 6px;
     text-align: center;
     width: 40px;
-    height: 40px;
     color: #fff;
     background: #171717;
 }
@@ -263,6 +262,7 @@
 .llline, .rline {
     border-bottom: 1px solid #C2973C;
     display: inline-block;
+    vertical-align: text-top;
     width: 75px;
 }
 
@@ -279,7 +279,7 @@
 }
 
 .overlay {
-    background: url("${resourceUrl}/overlay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("http://roletytrak.pl/tmp/template/overlay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
     display: block;
     height: 100%;
     left: 0;
@@ -348,114 +348,130 @@
 </style>
 
 <div class="page">
-    <div id="start" class="header">
-        <div class="banner">
-            <img src="${resourceUrl}/banner.jpg" alt="baner">
+<div id="start" class="header">
+    <div class="banner">
+        <img src="http://roletytrak.pl/tmp/template/banner.jpg" alt="baner">
+    </div>
+</div>
+<div class="content">
+    <div class="overlay"></div>
+    <div class="title">
+        <div class="title-wrapper">
+            <div class="llline"></div>
+            <div class="title-text">Sukienka ASOS 2020 SUPER STAN MUSISZ MIEĆ SYLWESTER</div>
+            <div class="rline"></div>
         </div>
     </div>
-    <div class="content">
-        <div class="overlay"></div>
-        <div class="title">
-            <div class="title-wrapper">
-                <div class="llline"></div>
-                <div class="title-text">${title}</div>
-                <div class="rline"></div>
-            </div>
-        </div>
-        <div class="technicalData">
-            <div class="heading">
-                <span>Dane techniczne</span>
-
-                <div class="tl"></div>
-                <div class="tr"></div>
-                <div class="bl"></div>
-                <div class="br"></div>
-            </div>
-            <div>
-                <div class="label">Przebieg:</div>
-                <div class="value">${carMileage}</div>
-            </div>
-            <div>
-                <div class="label">Skrzynia biegów:</div>
-                <div class="value">${carGearbox}</div>
-            </div>
-            <div>
-                <div class="label">Silnik:</div>
-                <div class="value">${carEngine}</div>
-            </div>
-            <div>
-                <div class="label">Moc:</div>
-                <div class="value">${carPower}</div>
-            </div>
-            <div>
-                <div class="label">Kolor:</div>
-                <div class="value">${carColor}</div>
-            </div>
-            <div>
-                <div class="label">Rok produkcji:</div>
-                <div class="value">${carYear}</div>
-            </div>
-        </div>
-
-        <div class="company-info">
-            <div class="map">
-                <div class="map-hint">Kliknij aby przejść do Google Maps</div>
-                <a class="map-link"
-                   href="https://www.google.pl/maps/place/S%C4%85d+Okr%C4%99gowy/@52.1686567,22.276414,14z/data=!4m2!3m1!1s0x0:0xfadf9c19b53cbc03"><img
-                        src="${resourceUrl}/map.jpg" alt="map"> </a>
-            </div>
-            <div class="company-info-wrapper">
-                <div>Samochody sprzedawane na naszych aukcjach są w 100% sprawne</div>
-                <div>W razie pytań proszę o telefon:<br>
-                    <strong>531-101-103</strong><br>
-                    lub maila:<br>
-                    <strong>exclusive@park.auto.pl</strong></div>
-            </div>
-
-        </div>
-        <div class="clearfix"></div>
-        <div class="equipment">
-            <div class="heading">
-                <span>Wyposażenie</span>
-
-                <div class="tl"></div>
-                <div class="tr"></div>
-                <div class="bl"></div>
-                <div class="br"></div>
-            </div>
-            <div class="equipment-wrapper">
-                <table class="equipment-table">
-                    <tbody>
-                    ${equipmentTbody}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="gallery">
-        <div class="heading dark">
-            <span>${galleryTitle}</span>
+    <div class="technicalData">
+        <div class="heading">
+            <span>Dane techniczne</span>
 
             <div class="tl"></div>
             <div class="tr"></div>
             <div class="bl"></div>
             <div class="br"></div>
         </div>
-        <div class="gallery-wrapper">
-            ${galleryPhotos}
+        <div>
+            <div class="label">Przebieg:</div>
+            <div class="value">2 sezony</div>
+        </div>
+        <div>
+            <div class="label">Skrzynia biegów:</div>
+            <div class="value">NN</div>
+        </div>
+        <div>
+            <div class="label">Silnik:</div>
+            <div class="value">NN</div>
+        </div>
+        <div>
+            <div class="label">Moc:</div>
+            <div class="value">oszałamijąca sukienka</div>
+        </div>
+        <div>
+            <div class="label">Kolor:</div>
+            <div class="value">czerwona</div>
+        </div>
+        <div>
+            <div class="label">Rok produkcji:</div>
+            <div class="value">2020</div>
         </div>
     </div>
-    <div class="footer">
-        <a href="#start" class="go-up"><span>^</span></a>
 
-        <div class="footer-wrapper">
-            <div class="logo">EXCLUSIVE PARK AUTO</div>
-            <div class="divider"></div>
-            <div class="contact">
-                Siedlce, ul. Piłsudskiego 1<br>
-                <span class="telephone">tel kom: 531-101-103</span><br>
-                <span class="email">e-mail: exclusive@park.auto.pl</span><br>
-            </div>
+    <div class="company-info">
+        <div class="map">
+            <div class="map-hint">Kliknij aby przejść do Google Maps</div>
+            <a class="map-link"
+               href="https://www.google.pl/maps/place/S%C4%85d+Okr%C4%99gowy/@52.1686567,22.276414,14z/data=!4m2!3m1!1s0x0:0xfadf9c19b53cbc03"><img
+                    src="http://roletytrak.pl/tmp/template/map.jpg" alt="map"> </a>
+        </div>
+        <div class="company-info-wrapper">
+            <div>Samochody sprzedawane na naszych aukcjach są w 100% sprawne</div>
+            <div>W razie pytań proszę o telefon:<br>
+                <strong>531-101-103</strong><br>
+                lub maila:<br>
+                <strong>exclusive@park.auto.pl</strong></div>
+        </div>
+
+    </div>
+    <div class="clearfix"></div>
+    <div class="equipment">
+        <div class="heading">
+            <span>Wyposażenie</span>
+
+            <div class="tl"></div>
+            <div class="tr"></div>
+            <div class="bl"></div>
+            <div class="br"></div>
+        </div>
+        <div class="equipment-wrapper">
+            <table class="equipment-table">
+                <tbody>
+                <tr><td>koronka</td><td>haftki</td></tr><tr><td>dziury na sutki</td><td>dziura na cipke</td></tr><tr><td>suwak na tylku</td><td>dzira na tylku</td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
+<div class="gallery">
+    <div class="heading dark">
+        <span>ZAJEBISTA KARNAWAŁ MUSISZ JĄ MIEĆ JEDYNA W SWOIM RODZAJU</span>
+
+        <div class="tl"></div>
+        <div class="tr"></div>
+        <div class="bl"></div>
+        <div class="br"></div>
+    </div>
+    <div class="gallery-wrapper">
+        <div class="gallery-photo">
+    <a href="http://roletytrak.pl/tmp/galerie/test/image1.html"><img src="http://roletytrak.pl/tmp/galerie/test/image1_thumb.jpg" alt="gallery-image">
+        <div class="border"></div>
+    </a>
+</div><div class="gallery-photo">
+    <a href="http://roletytrak.pl/tmp/galerie/test/image2.html"><img src="http://roletytrak.pl/tmp/galerie/test/image2_thumb.jpg" alt="gallery-image">
+        <div class="border"></div>
+    </a>
+</div><div class="gallery-photo">
+    <a href="http://roletytrak.pl/tmp/galerie/test/image3.html"><img src="http://roletytrak.pl/tmp/galerie/test/image3_thumb.jpg" alt="gallery-image">
+        <div class="border"></div>
+    </a>
+</div><div class="gallery-photo">
+    <a href="http://roletytrak.pl/tmp/galerie/test/obrazek2.html"><img src="http://roletytrak.pl/tmp/galerie/test/obrazek2_thumb.jpg" alt="gallery-image">
+        <div class="border"></div>
+    </a>
+</div>
+    </div>
+</div>
+<div class="footer">
+    <a href="#start" class="go-up"><span>^</span></a>
+
+    <div class="footer-wrapper">
+        <div class="logo">EXCLUSIVE PARK AUTO</div>
+        <div class="divider"></div>
+        <div class="contact">
+            Siedlce, ul. Piłsudskiego 1<br>
+            <span class="telephone">tel kom: 531-101-103</span><br>
+            <span class="email">e-mail: exclusive@park.auto.pl</span><br>
+        </div>
+    </div>
+</div>
 </div>

@@ -42,12 +42,20 @@ public class SendToFtpController implements ViewController {
     private boolean done;
 
     public void init(File imagesDirectory, List<File> filesToUpload) {
-        if (!filesToUpload.equals(this.filesToUpload)) {
-            done = false;
-            statusLabel.setText("");
-        }
+        resetView();
         this.imagesDirectory = imagesDirectory;
         this.filesToUpload = filesToUpload;
+    }
+
+    public void resetView() {
+        filesToUpload = null;
+        imagesDirectory = null;
+        done = false;
+        statusLabel.setText("");
+    }
+
+    public Node getView() {
+        return view;
     }
 
     public void sendButtonAction(ActionEvent event) {
@@ -81,17 +89,6 @@ public class SendToFtpController implements ViewController {
         };
         sendImages.start();
         Dialogs.create().title("Wysyłanie plików na serwer FTP").lightweight().showWorkerProgress(sendImages);
-    }
-
-    public Node getView() {
-        return view;
-    }
-
-    public void resetView() {
-        filesToUpload = null;
-        imagesDirectory = null;
-        done = false;
-        statusLabel.setText("");
     }
 
     public boolean isDone() {

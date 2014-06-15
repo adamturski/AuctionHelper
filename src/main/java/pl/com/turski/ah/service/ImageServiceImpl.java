@@ -8,7 +8,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import pl.com.turski.ah.core.image.GalleryTemplateAttr;
 import pl.com.turski.ah.core.setting.SettingManager;
-import pl.com.turski.ah.model.setting.FtpSetting;
 import pl.com.turski.ah.model.setting.GallerySetting;
 
 import javax.imageio.ImageIO;
@@ -54,7 +53,6 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public void createGallery(File galleryDirectory, File image, File previousImage, File nextImage) throws IOException {
         GallerySetting gallerySetting = settingManager.getGallerySetting();
-        FtpSetting ftpSetting = settingManager.getFtpSetting();
         String filledGalleryTemplate = galleryTemplate;
         filledGalleryTemplate = filledGalleryTemplate.replace(GalleryTemplateAttr.TITLE.getKey(), "Zdjęcie: " + FilenameUtils.getBaseName(image.getName()));
         filledGalleryTemplate = filledGalleryTemplate.replace(GalleryTemplateAttr.IMAGE_SRC.getKey(), FilenameUtils.getBaseName(image.getName()) + "_." + FilenameUtils.getExtension(image.getName()));

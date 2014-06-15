@@ -22,11 +22,22 @@
     </bean>
 
     <bean id="sendToFtpController" class="pl.com.turski.ah.view.sendToFtp.SendToFtpController"
-              factory-bean="fxmlLoader"
-              factory-method="load">
-            <constructor-arg value="sendToFtp/sendToFtp.fxml"/>
-        </bean>
+          factory-bean="fxmlLoader"
+          factory-method="load">
+        <constructor-arg value="sendToFtp/sendToFtp.fxml"/>
+    </bean>
 
+    <bean id="fillTemplateController" class="pl.com.turski.ah.view.fillTemplate.FillTemplateController"
+          factory-bean="fxmlLoader"
+          factory-method="load">
+        <constructor-arg value="fillTemplate/fillTemplate.fxml"/>
+    </bean>
+
+    <bean id="checkResultsController" class="pl.com.turski.ah.view.checkResults.CheckResultsController"
+          factory-bean="fxmlLoader"
+          factory-method="load">
+        <constructor-arg value="checkResults/checkResults.fxml"/>
+    </bean>
 
     <bean id="settingController" class="pl.com.turski.ah.view.setting.SettingController" scope="prototype"
           factory-bean="fxmlLoader" factory-method="load">

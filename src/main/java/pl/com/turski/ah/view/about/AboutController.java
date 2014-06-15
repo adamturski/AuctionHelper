@@ -13,15 +13,10 @@ import pl.com.turski.ah.view.ViewController;
 public class AboutController implements ViewController {
 
     @FXML
-    Node view;
-    @FXML
     Button closeButton;
-
     @FXML
-    public void closeButtonAction(ActionEvent event) {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
-    }
+    Node view;
+
 
     @Override
     public Node getView() {
@@ -30,6 +25,11 @@ public class AboutController implements ViewController {
 
     @Override
     public void resetView() {
+    }
 
+    @FXML
+    public void closeButtonAction(ActionEvent event) {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 }

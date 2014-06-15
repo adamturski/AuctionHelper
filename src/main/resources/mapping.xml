@@ -32,6 +32,12 @@
     </class>
     <class name="pl.com.turski.ah.model.setting.GallerySetting">
         <map-to xml="gallerySetting"/>
+        <field name="galleriesDirectory" type="string">
+                    <bind-xml name="galleriesDirectory" node="element"/>
+                </field>
+        <field name="resourceUrl" type="string">
+            <bind-xml name="resourceUrl" node="element"/>
+        </field>
         <field name="imageWidth" type="integer">
             <bind-xml name="imageWidth" node="element"/>
         </field>

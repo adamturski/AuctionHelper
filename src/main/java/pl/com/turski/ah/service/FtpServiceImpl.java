@@ -112,10 +112,12 @@ public class FtpServiceImpl implements FtpService {
     private void deleteDirectoryIfExist(String galleryPath) throws IOException {
         boolean directoryExists = ftpClient.changeWorkingDirectory(galleryPath);
         if (directoryExists) {
-            FTPFile[] ftpFiles = ftpClient.listFiles(galleryPath);
+            FTPFile[] ftpFiles = ftpClient.listFiles();
             if (ftpFiles != null) {
                 for (FTPFile ftpFile : ftpFiles) {
-                    ftpClient.deleteFile(galleryPath + "/" + ftpFile.getName());
+                    if (ftpFile.isFile()) {
+                        ftpClient.deleteFile(ftpFile.getName());
+                    }
                 }
             }
             ftpClient.removeDirectory(galleryPath);
@@ -138,13 +140,14 @@ public class FtpServiceImpl implements FtpService {
 
     @Override
     public void send(File file) throws IllegalArgumentException, FtpConnectionException, FtpLoginException, FtpStoreFileException, CommonFileException {
-        try {
-            if (file == null) {
-                throw new IllegalArgumentException("Przekazano niepoprawny plik [file=null]");
-            }
+        if (file == null) {
+            throw new IllegalArgumentException("Przekazano niepoprawny plik [file=null]");
+        }
+
+        try (FileInputStream fis = new FileInputStream(file)) {
             connect();
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
-            boolean fileStored = ftpClient.storeFile(file.getName(), new FileInputStream(file));
+            boolean fileStored = ftpClient.storeFile(file.getName(), fis);
             if (!fileStored) {
                 LOG.error(String.format("Nie przesłano pliku '%s'", file.getName()));
                 throw new FtpStoreFileException(String.format("Nie przesłano pliku '%s'", file.getName()));

@@ -10,122 +10,112 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="419.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.com.turski.ah.view.setting.SettingController">
-   <children>
-      <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-         <children>
-            <TabPane prefHeight="309.0" prefWidth="462.0" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
-              <tabs>
-                <Tab closable="false" text="Ftp">
-                     <content>
-                        <GridPane style="-fx-padding: 10px;">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="300.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                          </rowConstraints>
-                           <children>
-                              <Label text="Serwer" />
-                              <HBox alignment="CENTER" GridPane.columnIndex="1">
-                                 <children>
-                                    <TextField fx:id="ftpHostname" promptText="Adres" GridPane.columnIndex="1" HBox.hgrow="ALWAYS" />
-                                    <Label text=":" />
-                                    <TextField fx:id="ftpPort" prefHeight="25.0" prefWidth="57.0" promptText="Port" />
-                                 </children>
-                              </HBox>
-                              <Label text="Login" GridPane.rowIndex="1" />
-                              <Label text="Hasło" GridPane.rowIndex="2" />
-                              <TextField fx:id="ftpLogin" prefHeight="25.0" prefWidth="192.0" promptText="Login" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <PasswordField fx:id="ftpPassword" promptText="Hasło" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Button fx:id="testButton" mnemonicParsing="false" onAction="#testButtonAction" text="Testuj" GridPane.rowIndex="4" />
-                              <Label fx:id="connectionStatus" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <Label text="Folder galerii" GridPane.rowIndex="3" />
-                              <TextField fx:id="ftpWorkingDirectory" prefHeight="25.0" prefWidth="192.0" promptText="Folder galerii" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                           </children>
-                        </GridPane>
-                     </content>
-                </Tab>
-                  <Tab text="Galeria">
-                     <content>
-                        <GridPane style="-fx-padding: 10px;">
-                           <children>
-                              <Label text="Szerokość zdjęcia" />
-                              <TextField fx:id="imageWidth" prefHeight="25.0" prefWidth="57.0" GridPane.columnIndex="1" />
-                              <Label text="Szerokość miniatury  " GridPane.rowIndex="1" />
-                              <TextField fx:id="thumbnailWidth" prefHeight="25.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label text="px" GridPane.columnIndex="2" />
-                              <Label text="px" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                           </children>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="NEVER" maxWidth="152.0" minWidth="10.0" prefWidth="128.0" />
-                              <ColumnConstraints hgrow="NEVER" maxWidth="393.0" minWidth="10.0" prefWidth="69.0" />
-                              <ColumnConstraints hgrow="NEVER" maxWidth="362.0" minWidth="10.0" prefWidth="362.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
-                           </rowConstraints>
-                        </GridPane>
-                     </content>
-                  </Tab>
-                <Tab closable="false" text="Szablon">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-padding: 10px;">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="554.0" style="-fx-padding: 10px; -fx-spacing: 10px;" VBox.vgrow="NEVER">
-                                 <children>
-                                    <Button fx:id="templateLoadButton" mnemonicParsing="false" onAction="#templateLoadButtonAction" text="Wybierz" />
-                                    <Label fx:id="templateFilePath" />
-                                 </children>
-                              </HBox>
-                              <TableView fx:id="attributesTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                <columns>
-                                    <TableColumn fx:id="attributeNameColumn" editable="false" prefWidth="162.0" text="Nazwa atrybutu" />
-                                  <TableColumn fx:id="attributeDefaultValueColumn" editable="false" prefWidth="286.0" text="Wartość domyślna" />
-                                  <TableColumn fx:id="attributeOrderColumn" editable="false" minWidth="5.0" prefWidth="105.0" text="Kolejność" />
-                                </columns>
-                              </TableView>
-                           </children>
-                        </VBox>
-                     </content>
-                </Tab>
-                  <Tab closable="false" text="Zmienne">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-padding: 10px;">
-                           <children>
-                              <TableView fx:id="variablesTable" editable="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                 <columns>
-                                    <TableColumn fx:id="variableNameColumn" prefWidth="197.0" text="Nazwa" />
-                                    <TableColumn fx:id="variableValueColumn" editable="false" prefWidth="265.0" text="Wartość" />
-                                    <TableColumn fx:id="variableActionColumn" prefWidth="91.0" text="Akcja" />
-                                 </columns>
-                              </TableView>
-                              <HBox alignment="CENTER" prefHeight="44.0" prefWidth="554.0" style="-fx-spacing: 10px;" VBox.vgrow="NEVER">
-                                 <children>
-                                    <TextField fx:id="newVariableName" promptText="Nazwa" HBox.hgrow="ALWAYS" />
-                                    <TextField fx:id="newVariableValue" promptText="Wartość" HBox.hgrow="ALWAYS" />
-                                    <Button fx:id="newVariableButton" mnemonicParsing="false" text="Dodaj" HBox.hgrow="NEVER" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </content>
-                  </Tab>
-              </tabs>
-            </TabPane>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="64.0" prefWidth="373.0" style="-fx-spacing: 15px; -fx-padding: 15px;" VBox.vgrow="NEVER">
-         <children>
-            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonAction" text="Zapisz" />
-            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonAction" text="Anuluj" />
-         </children>
-      </HBox>
-   </children>
+<VBox fx:id="view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="419.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="pl.com.turski.ah.view.setting.SettingController">
+    <children>
+        <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <children>
+                <TabPane prefHeight="309.0" prefWidth="462.0" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
+                    <tabs>
+                        <Tab closable="false" text="Ftp">
+                            <content>
+                                <GridPane hgap="5.0" style="-fx-padding: 10px;" vgap="5.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
+                                        <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0"
+                                                           prefWidth="300.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"
+                                                        vgrow="NEVER"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"
+                                                        vgrow="NEVER"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"
+                                                        vgrow="NEVER"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"
+                                                        vgrow="NEVER"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"
+                                                        vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Serwer"/>
+                                        <HBox alignment="CENTER" GridPane.columnIndex="1">
+                                            <children>
+                                                <TextField fx:id="ftpHostname" promptText="Adres"
+                                                           GridPane.columnIndex="1" HBox.hgrow="ALWAYS"/>
+                                                <Label text=":"/>
+                                                <TextField fx:id="ftpPort" prefHeight="25.0" prefWidth="57.0"
+                                                           promptText="Port"/>
+                                            </children>
+                                        </HBox>
+                                        <Label text="Login" GridPane.rowIndex="1"/>
+                                        <Label text="Hasło" GridPane.rowIndex="2"/>
+                                        <TextField fx:id="ftpLogin" prefHeight="25.0" prefWidth="192.0"
+                                                   promptText="Login" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                        <PasswordField fx:id="ftpPassword" promptText="Hasło" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="2"/>
+                                        <Button mnemonicParsing="false" onAction="#testButtonAction" text="Testuj"
+                                                GridPane.rowIndex="4"/>
+                                        <Label fx:id="connectionStatus" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                                        <Label text="Folder galerii" GridPane.rowIndex="3"/>
+                                        <TextField fx:id="ftpWorkingDirectory" prefHeight="25.0" prefWidth="192.0"
+                                                   promptText="Folder galerii" GridPane.columnIndex="1"
+                                                   GridPane.rowIndex="3"/>
+                                    </children>
+                                </GridPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Galeria">
+                            <content>
+                                <GridPane hgap="5.0" style="-fx-padding: 10px;" vgap="5.0">
+                                    <children>
+                                        <Label text="URL do galerii"/>
+                                        <TextField fx:id="galleriesDirectory" GridPane.columnIndex="1"/>
+                                        <Label text="URL do źródeł" GridPane.rowIndex="1"/>
+                                        <TextField fx:id="resourcesUrlText" GridPane.columnIndex="1"
+                                                   GridPane.rowIndex="1"/>
+                                        <Label text="Szerokość zdjęcia" GridPane.rowIndex="2"/>
+                                        <TextField fx:id="imageWidth" prefHeight="25.0" prefWidth="174.0"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                                        <Label text="Szerokość miniatury  " GridPane.rowIndex="3"/>
+                                        <TextField fx:id="thumbnailWidth" prefHeight="25.0" prefWidth="192.0"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                                        <Label text="px" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                                        <Label text="px" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+
+
+                                    </children>
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
+                                        <ColumnConstraints hgrow="NEVER" maxWidth="393.0" minWidth="10.0"
+                                                           prefWidth="309.0"/>
+                                        <ColumnConstraints hgrow="NEVER" maxWidth="362.0" minWidth="10.0"
+                                                           prefWidth="122.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"
+                                                        vgrow="NEVER"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"
+                                                        vgrow="NEVER"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"
+                                                        vgrow="NEVER"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"
+                                                        vgrow="NEVER"/>
+                                    </rowConstraints>
+                                </GridPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_RIGHT" prefHeight="64.0" prefWidth="373.0" style="-fx-spacing: 15px; -fx-padding: 15px;"
+              VBox.vgrow="NEVER">
+            <children>
+                <Button mnemonicParsing="false" onAction="#saveButtonAction" text="Zapisz"/>
+                <Button mnemonicParsing="false" onAction="#cancelButtonAction" text="Anuluj"/>
+            </children>
+        </HBox>
+    </children>
 </VBox>

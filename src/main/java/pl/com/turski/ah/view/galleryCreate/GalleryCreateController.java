@@ -44,10 +44,7 @@ public class GalleryCreateController implements ViewController {
     private boolean done;
 
     public void init(File imagesDirectory, List<File> images) {
-        if (!imagesDirectory.equals(this.imagesDirectory)) {
-            done = false;
-            statusLabel.setText("");
-        }
+        resetView();
         this.imagesDirectory = imagesDirectory;
         this.images = images;
     }
@@ -121,6 +118,7 @@ public class GalleryCreateController implements ViewController {
         imagesDirectory = null;
         images = null;
         done = false;
+        statusLabel.setText("");
     }
 
     public File getImagesDirectory() {

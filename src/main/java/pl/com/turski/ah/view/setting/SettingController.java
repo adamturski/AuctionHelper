@@ -3,8 +3,11 @@ package pl.com.turski.ah.view.setting;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.controlsfx.dialog.Dialogs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,33 +40,15 @@ public class SettingController implements ViewController {
     @FXML
     TextField ftpWorkingDirectory;
     @FXML
-    Label connectionStatus;
+    TextField galleriesDirectory;
     @FXML
-    Label templateFilePath;
+    TextField resourcesUrlText;
     @FXML
     TextField imageWidth;
     @FXML
     TextField thumbnailWidth;
     @FXML
-    TableView attributesTable;
-    @FXML
-    TableColumn attributeNameColumn;
-    @FXML
-    TableColumn attributeDefaultValueColumn;
-    @FXML
-    TableColumn attributeOrderColumn;
-    @FXML
-    TableView variablesTable;
-    @FXML
-    TableColumn variableNameColumn;
-    @FXML
-    TableColumn variableValueColumn;
-    @FXML
-    TableColumn variableActionColumn;
-    @FXML
-    TextField newVariableName;
-    @FXML
-    TextField newVariableValue;
+    Label connectionStatus;
 
     @Autowired
     private SettingManager settingManager;
@@ -71,11 +56,7 @@ public class SettingController implements ViewController {
     private FtpService ftpService;
 
     public void init() {
-        attributesTable.setPlaceholder(new Label("Nie znaleziono żadnych atrybutów w szablonie"));
-        variablesTable.setPlaceholder(new Label("Nie zdefiniowano żadnych zmiennych"));
-    }
-
-    public void initSetting() {
+        resetView();
         FtpSetting ftpSetting = settingManager.getFtpSetting();
         ftpHostname.setText(ftpSetting.getHostname());
         ftpPort.setText(String.valueOf(ftpSetting.getPort()));
@@ -83,21 +64,24 @@ public class SettingController implements ViewController {
         ftpPassword.setText(ftpSetting.getPassword());
         ftpWorkingDirectory.setText(ftpSetting.getWorkingDirectory());
         GallerySetting gallerySetting = settingManager.getGallerySetting();
+        galleriesDirectory.setText(gallerySetting.getGalleriesDirectory());
+        resourcesUrlText.setText(gallerySetting.getResourceUrl());
         imageWidth.setText(String.valueOf(gallerySetting.getImageWidth()));
         thumbnailWidth.setText(String.valueOf(gallerySetting.getThumbnailWidth()));
+    }
+
+    @Override
+    public Node getView() {
+        return view;
+    }
+
+    @Override
+    public void resetView() {
     }
 
     public void testButtonAction(ActionEvent event) {
         FtpConnectionStatusCode statusCode = ftpService.testConnection(ftpHostname.getText(), Integer.parseInt(ftpPort.getText()), ftpLogin.getText(), ftpPassword.getText(), ftpWorkingDirectory.getText());
         connectionStatus.setText(statusCode.getMessage());
-    }
-
-    public void templateLoadButtonAction(ActionEvent event) {
-        //To change body of created methods use File | Settings | File Templates.
-    }
-
-    public void newVariableButtonAction(ActionEvent event) {
-        //To change body of created methods use File | Settings | File Templates.
     }
 
     public void saveButtonAction(ActionEvent event) {
@@ -109,28 +93,21 @@ public class SettingController implements ViewController {
             ftpSetting.setPassword(ftpPassword.getText());
             ftpSetting.setWorkingDirectory(ftpWorkingDirectory.getText());
             GallerySetting gallerySetting = new GallerySetting();
+            gallerySetting.setGalleriesDirectory(galleriesDirectory.getText());
+            gallerySetting.setResourceUrl(resourcesUrlText.getText());
             gallerySetting.setImageWidth(Integer.parseInt(imageWidth.getText()));
             gallerySetting.setThumbnailWidth(Integer.parseInt(thumbnailWidth.getText()));
             settingManager.saveSettings(ftpSetting, gallerySetting);
             Stage stage = (Stage) view.getScene().getWindow();
             stage.close();
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            LOG.error("Wystąpił błąd podczas zapisywania ustawień", e);
+            Dialogs.create().title("Błąd").message("Wystąpił błąd podczas zapisywania ustawień").lightweight().showError();
         }
     }
 
     public void cancelButtonAction(ActionEvent event) {
         Stage stage = (Stage) view.getScene().getWindow();
         stage.close();
-    }
-
-    @Override
-    public Node getView() {
-        return view;
-    }
-
-    @Override
-    public void resetView() {
-
     }
 }

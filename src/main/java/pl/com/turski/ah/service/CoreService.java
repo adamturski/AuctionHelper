@@ -1,10 +1,17 @@
 package pl.com.turski.ah.service;
 
-import pl.com.turski.ah.model.setting.Setting;
+import pl.com.turski.ah.exception.CommonFileException;
+import pl.com.turski.ah.model.core.TemplateValue;
+
+import java.net.URI;
 
 /**
  * User: Adam
  */
 public interface CoreService {
-    public void setPreferences(Setting preferences);
+
+    public String fillTemplate(TemplateValue templateValue);
+
+    public URI createTemplateFile(String s) throws CommonFileException;
+
 }

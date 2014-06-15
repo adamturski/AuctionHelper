@@ -17,7 +17,7 @@ public class App extends Application {
         primaryStage.setScene(new Scene((Parent) mainController.getView(), 800, 600));
         primaryStage.setTitle("AuctionHelper 1.0");
         primaryStage.show();
-        mainController.init();
+        mainController.init(this);
     }
 
     public static void main(String[] args) {

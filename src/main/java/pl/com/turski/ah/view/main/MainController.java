@@ -1,5 +1,6 @@
 package pl.com.turski.ah.view.main;
 
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,9 +22,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.oxm.XmlMappingException;
 import pl.com.turski.ah.core.setting.SettingManager;
 import pl.com.turski.ah.model.view.Step;
+import pl.com.turski.ah.service.CoreService;
 import pl.com.turski.ah.view.ViewController;
 import pl.com.turski.ah.view.about.AboutController;
+import pl.com.turski.ah.view.checkResults.CheckResultsController;
 import pl.com.turski.ah.view.directoryChoose.DirectoryChooseController;
+import pl.com.turski.ah.view.fillTemplate.FillTemplateController;
 import pl.com.turski.ah.view.galleryCreate.GalleryCreateController;
 import pl.com.turski.ah.view.sendToFtp.SendToFtpController;
 import pl.com.turski.ah.view.setting.SettingController;
@@ -60,6 +64,8 @@ public class MainController implements ViewController {
     @Autowired
     private SettingManager settingManager;
     @Autowired
+    private CoreService coreService;
+    @Autowired
     private ApplicationContext applicationContext;
     @Autowired
     private DirectoryChooseController directoryChooseController;
@@ -67,17 +73,23 @@ public class MainController implements ViewController {
     private GalleryCreateController galleryCreateController;
     @Autowired
     private SendToFtpController sendToFtpController;
+    @Autowired
+    private FillTemplateController fillTemplateController;
+    @Autowired
+    private CheckResultsController checkResultsController;
 
+    private Application app;
     private Step step;
 
-    public void init() {
+    public void init(Application app) {
         LOG.info("Inicjalizacja głównego kontrolera");
+        this.app = app;
         actionPanel.getChildren().clear();
         contentGrid.getChildren().clear();
         boolean settingInitialized = initSettings();
         if (settingInitialized) {
             actionPanel.getChildren().add(nextButton);
-            step = Step.FOLDER_CHOOSE;
+            step = Step.DIRECTORY_CHOOSE;
             stepTitle.setText(step.getStepTitle());
             contentGrid.add(directoryChooseController.getView(), 0, 0);
         }
@@ -103,7 +115,7 @@ public class MainController implements ViewController {
         stage.setTitle("Ustawienia");
         stage.setScene(new Scene((Parent) settingController.getView()));
         stage.initModality(Modality.APPLICATION_MODAL);
-        settingController.initSetting();
+        settingController.init();
         stage.showAndWait();
     }
 
@@ -132,26 +144,19 @@ public class MainController implements ViewController {
 
     public void previousButtonAction(ActionEvent event) {
         if (step == Step.GALLERY_CREATE) {
-            step = Step.FOLDER_CHOOSE;
-            contentGrid.getChildren().clear();
-            contentGrid.add(directoryChooseController.getView(), 0, 0);
-            actionPanel.getChildren().clear();
-            actionPanel.getChildren().add(nextButton);
-            stepTitle.setText(step.getStepTitle());
+            changeView(directoryChooseController, Step.DIRECTORY_CHOOSE, false, true, false);
         } else if (step == Step.SEND_TO_FTP) {
-            step = Step.GALLERY_CREATE;
-            contentGrid.getChildren().clear();
-            contentGrid.add(galleryCreateController.getView(), 0, 0);
-            actionPanel.getChildren().clear();
-            actionPanel.getChildren().add(previousButton);
-            actionPanel.getChildren().add(nextButton);
-            stepTitle.setText(step.getStepTitle());
+            changeView(galleryCreateController, Step.GALLERY_CREATE, true, true, false);
+        } else if (step == Step.FILL_TEMPLATE) {
+            changeView(sendToFtpController, Step.SEND_TO_FTP, true, true, false);
+        } else if (step == Step.CHECK_RESULTS) {
+            changeView(fillTemplateController, Step.FILL_TEMPLATE, true, true, false);
         }
 
     }
 
     public void nextButtonAction(ActionEvent event) {
-        if (step == Step.FOLDER_CHOOSE) {
+        if (step == Step.DIRECTORY_CHOOSE) {
             List<File> images = directoryChooseController.getImages();
             File imagesDirectory = directoryChooseController.getImagesDirectory();
             if (imagesDirectory == null) {
@@ -159,38 +164,58 @@ public class MainController implements ViewController {
             } else if (images == null || images.isEmpty()) {
                 Dialogs.create().title("Błąd").message("Wybrany folder nie zawiera żadnych zdjęć").lightweight().showError();
             } else {
-                step = Step.GALLERY_CREATE;
-                stepTitle.setText(step.getStepTitle());
                 galleryCreateController.init(imagesDirectory, images);
-                contentGrid.getChildren().clear();
-                contentGrid.add(galleryCreateController.getView(), 0, 0);
-                actionPanel.getChildren().clear();
-                actionPanel.getChildren().add(previousButton);
-                actionPanel.getChildren().add(nextButton);
+                changeView(galleryCreateController, Step.GALLERY_CREATE, true, true, false);
             }
         } else if (step == Step.GALLERY_CREATE) {
             File imagesDirectory = galleryCreateController.getImagesDirectory();
             File galleryDirectory = galleryCreateController.getGalleryDirectory();
             boolean galleryCreated = galleryCreateController.isDone();
             if (galleryCreated) {
-                step = Step.SEND_TO_FTP;
-                stepTitle.setText(step.getStepTitle());
                 sendToFtpController.init(imagesDirectory, Arrays.asList(galleryDirectory.listFiles()));
-                contentGrid.getChildren().clear();
-                contentGrid.add(sendToFtpController.getView(), 0, 0);
-                actionPanel.getChildren().clear();
-                actionPanel.getChildren().add(previousButton);
-                actionPanel.getChildren().add(nextButton);
+                changeView(sendToFtpController, Step.SEND_TO_FTP, true, true, false);
             } else {
                 Dialogs.create().title("Błąd").message("Nie wygenerowałeś galerii").lightweight().showError();
             }
+        } else if (step == Step.SEND_TO_FTP) {
+            boolean filesSend = sendToFtpController.isDone();
+            if (filesSend) {
+                fillTemplateController.init(directoryChooseController.getImagesDirectory().getName(), galleryCreateController.getGalleryDirectory());
+                changeView(fillTemplateController, Step.FILL_TEMPLATE, true, true, false);
+            } else {
+                Dialogs.create().title("Błąd").message("Nie wysłałeś galerii na serwer").lightweight().showError();
+            }
+        } else if (step == Step.FILL_TEMPLATE) {
+            String filledTemplate = fillTemplateController.getFilledTemplate();
+            checkResultsController.init(app, filledTemplate);
+            changeView(checkResultsController, Step.CHECK_RESULTS, true, false, true);
         }
-
     }
 
     public void finishButtonAction(ActionEvent event) {
         directoryChooseController.resetView();
         galleryCreateController.resetView();
+        sendToFtpController.resetView();
+        fillTemplateController.resetView();
+        checkResultsController.resetView();
+        changeView(directoryChooseController, Step.DIRECTORY_CHOOSE, false, true, false);
+    }
+
+    public void changeView(ViewController view, Step step, boolean prev, boolean next, boolean finish) {
+        this.step = step;
+        stepTitle.setText(step.getStepTitle());
+        contentGrid.getChildren().clear();
+        contentGrid.add(view.getView(), 0, 0);
+        actionPanel.getChildren().clear();
+        if (prev) {
+            actionPanel.getChildren().add(previousButton);
+        }
+        if (next) {
+            actionPanel.getChildren().add(nextButton);
+        }
+        if (finish) {
+            actionPanel.getChildren().add(finishButton);
+        }
     }
 
 

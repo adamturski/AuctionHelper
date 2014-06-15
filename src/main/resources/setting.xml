@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<setting><ftpSetting><hostname>ftp.roletytrak.pl</hostname><port>21</port><login>roletytr</login><password>GjhyWKkY</password><workingDirectory>/www/tmp/galerie</workingDirectory></ftpSetting><gallerySetting><imageWidth>1024</imageWidth><thumbnailWidth>500</thumbnailWidth></gallerySetting></setting>
+<setting>
+    <ftpSetting>
+        <hostname>ftp.roletytrak.pl</hostname>
+        <port>21</port>
+        <login>roletytr</login>
+        <password>GjhyWKkY</password>
+        <workingDirectory>/www/tmp/galerie</workingDirectory>
+    </ftpSetting>
+    <gallerySetting>
+        <galleriesDirectory>http://roletytrak.pl/tmp/galerie</galleriesDirectory>
+        <resourceUrl>http://roletytrak.pl/tmp/template</resourceUrl>
+        <imageWidth>1024</imageWidth>
+        <thumbnailWidth>500</thumbnailWidth>
+    </gallerySetting>
+</setting>
