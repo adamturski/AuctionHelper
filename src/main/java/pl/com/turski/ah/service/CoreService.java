@@ -10,7 +10,7 @@ import java.net.URI;
  */
 public interface CoreService {
 
-    public String fillTemplate(TemplateValue templateValue);
+    public String fillTemplate(TemplateValue templateValue) throws CommonFileException;
 
     public URI createTemplateFile(String s) throws CommonFileException;
 

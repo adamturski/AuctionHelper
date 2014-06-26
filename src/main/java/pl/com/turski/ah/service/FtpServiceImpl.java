@@ -39,24 +39,26 @@ public class FtpServiceImpl implements FtpService {
             ftpClient.connect(hostname, port);
             boolean loginSucessfull = ftpClient.login(login, password);
             if (!loginSucessfull) {
-                LOG.info("Ftp client cannot login during connection test");
+                LOG.info("Logowanie nieudane podczas testu połączenia");
+                LOG.error("Błąd: {}-{}", ftpClient.getReplyCode(), ftpClient.getReplyString());
                 return FtpConnectionStatusCode.LOGIN_ERROR;
             }
             boolean changeWorkingDirectory = ftpClient.changeWorkingDirectory(workingDirectory);
             if (!changeWorkingDirectory) {
-                LOG.info("Ftp client cannot change working directory during connection test");
+                LOG.info("Zmiana katalogu nieudana podczas testu połączenia");
+                LOG.error("Błąd: {}-{}", ftpClient.getReplyCode(), ftpClient.getReplyString());
                 return FtpConnectionStatusCode.CHANGING_WORKING_DIRECTORY_ERROR;
             }
             return FtpConnectionStatusCode.OK;
         } catch (UnknownHostException e) {
-            LOG.error("UnknownHostException occured during connection test", e);
+            LOG.error("Błąd UnknownHostException podczas testu połączenia", e);
             return FtpConnectionStatusCode.CONNECTION_ERROR;
 
         } catch (FTPConnectionClosedException e) {
-            LOG.error("FTPConnectionClosedException occured during connection test", e);
+            LOG.error("Błąd FTPConnectionClosedException podczas testu połączenia", e);
             return FtpConnectionStatusCode.CONNECTION_ERROR;
         } catch (IOException e) {
-            LOG.error("IOException occured during connection test", e);
+            LOG.error("Błąd IOException podczas testu połączenia", e);
             return FtpConnectionStatusCode.CONNECTION_ERROR;
         } finally {
             try {
@@ -77,6 +79,7 @@ public class FtpServiceImpl implements FtpService {
                 if (!loggedIn) {
                     ftpClient.disconnect();
                     LOG.error("Nie udało się zalogować do serwera FTP");
+                    LOG.error("Błąd: {}-{}", ftpClient.getReplyCode(), ftpClient.getReplyString());
                     throw new FtpLoginException("Nie udało się zalogować do serwera FTP. Sprawdź swoje ustawienia.");
                 }
             }
@@ -130,10 +133,12 @@ public class FtpServiceImpl implements FtpService {
             boolean workingDirectoryChanged = ftpClient.changeWorkingDirectory(galleryPath);
             if (!workingDirectoryChanged) {
                 LOG.error("Zmiana katalogu się nie powiodła");
+                LOG.error("Błąd: {}-{}", ftpClient.getReplyCode(), ftpClient.getReplyString());
                 throw new FtpDirectoryException("Nie można ustawić katalogu galerii jako katalogu roboczego. Spróbuj ponownie.");
             }
         } else {
             LOG.error("Katalog galerii nie został utworzony");
+            LOG.error("Błąd: {}-{}", ftpClient.getReplyCode(), ftpClient.getReplyString());
             throw new FtpDirectoryException("Katalog galerii nie został utworzony na serwerze FTP. Spróbuj ponownie.");
         }
     }
@@ -150,6 +155,7 @@ public class FtpServiceImpl implements FtpService {
             boolean fileStored = ftpClient.storeFile(file.getName(), fis);
             if (!fileStored) {
                 LOG.error(String.format("Nie przesłano pliku '%s'", file.getName()));
+                LOG.error("Błąd: {}-{}", ftpClient.getReplyCode(), ftpClient.getReplyString());
                 throw new FtpStoreFileException(String.format("Nie przesłano pliku '%s'", file.getName()));
             }
         } catch (FileNotFoundException e) {

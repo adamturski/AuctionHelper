@@ -60,7 +60,7 @@ public class CoreServiceImpl implements CoreService {
         for (File thumbnailFile : thumbnailFiles) {
             String filledPhotoTemplate = galleryPhotoTemplate;
             filledPhotoTemplate = filledPhotoTemplate.replace(TemplateAttr.IMAGE_URL.getKey(), gallerySetting.getGalleriesDirectory() + "/" + templateValue.getRemoteGalleryName() + "/" + thumbnailFile.getName());
-            filledPhotoTemplate = filledPhotoTemplate.replace(TemplateAttr.IMAGE_HREF.getKey(), gallerySetting.getGalleriesDirectory() + "/" + templateValue.getRemoteGalleryName() + "/" + thumbnailFile.getName().replace("_thumb.jpg",".html"));
+            filledPhotoTemplate = filledPhotoTemplate.replace(TemplateAttr.IMAGE_HREF.getKey(), gallerySetting.getGalleriesDirectory() + "/" + templateValue.getRemoteGalleryName() + "/" + thumbnailFile.getName().replace("_thumb.jpg", ".html"));
             galleryPhotos.append(filledPhotoTemplate);
         }
         filledTemplate = filledTemplate.replace(TemplateAttr.GALLERY_PHOTOS.getKey(), galleryPhotos);
@@ -86,8 +86,10 @@ public class CoreServiceImpl implements CoreService {
     @Override
     public URI createTemplateFile(String filledTemplate) throws CommonFileException {
         try {
-            File filledTemplateFile = new File("index.html");
-            FileUtils.write(filledTemplateFile, filledTemplate, Charset.forName("UTF-8"));
+            File filledTemplateFile = new File("preview.html");
+            FileUtils.write(filledTemplateFile, "", Charset.forName("UTF-8"));
+            FileUtils.write(filledTemplateFile,"<meta charset=\"utf-8\">",Charset.forName("UTF-8"),true);
+            FileUtils.write(filledTemplateFile, filledTemplate, Charset.forName("UTF-8"),true);
             return filledTemplateFile.toURI();
         } catch (IOException e) {
             LOG.error("Nie udało się utworzyć pliku podglądu", e);

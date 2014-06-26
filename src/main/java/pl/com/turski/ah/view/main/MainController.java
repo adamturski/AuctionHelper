@@ -187,6 +187,9 @@ public class MainController implements ViewController {
             }
         } else if (step == Step.FILL_TEMPLATE) {
             String filledTemplate = fillTemplateController.getFilledTemplate();
+            if (filledTemplate == null) {
+                return;
+            }
             checkResultsController.init(app, filledTemplate);
             changeView(checkResultsController, Step.CHECK_RESULTS, true, false, true);
         }

@@ -4,8 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import org.controlsfx.dialog.Dialogs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pl.com.turski.ah.exception.CommonFileException;
 import pl.com.turski.ah.model.core.TemplateValue;
 import pl.com.turski.ah.service.CoreService;
 import pl.com.turski.ah.view.ViewController;
@@ -89,6 +91,11 @@ public class FillTemplateController implements ViewController {
     }
 
     public String getFilledTemplate() {
-        return coreService.fillTemplate(getTempalteValue());
+        try {
+            return coreService.fillTemplate(getTempalteValue());
+        } catch (CommonFileException e) {
+            Dialogs.create().title("Błąd").message(e.getMessage()).lightweight().showError();
+        }
+        return null;
     }
 }

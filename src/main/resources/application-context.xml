@@ -25,7 +25,7 @@
     <bean id="galleryTemplate" class="java.lang.String">
         <constructor-arg>
             <bean class="org.springframework.util.FileCopyUtils" factory-method="copyToByteArray">
-                <constructor-arg value="classpath:galleryTemplate.html" type="java.io.InputStream"/>
+                <constructor-arg value="app/resource/galleryTemplate.html" type="java.io.File"/>
             </bean>
         </constructor-arg>
     </bean>
@@ -33,7 +33,7 @@
     <bean id="galleryPhotoTemplate" class="java.lang.String">
         <constructor-arg>
             <bean class="org.springframework.util.FileCopyUtils" factory-method="copyToByteArray">
-                <constructor-arg value="classpath:galleryPhotoTemplate.html" type="java.io.InputStream"/>
+                <constructor-arg value="app/resource/galleryPhotoTemplate.html" type="java.io.File"/>
             </bean>
         </constructor-arg>
     </bean>
@@ -41,21 +41,21 @@
     <bean id="template" class="java.lang.String">
         <constructor-arg>
             <bean class="org.springframework.util.FileCopyUtils" factory-method="copyToByteArray">
-                <constructor-arg value="classpath:template.html" type="java.io.InputStream"/>
+                <constructor-arg value="app/resource/template.html" type="java.io.File"/>
             </bean>
         </constructor-arg>
     </bean>
 
-    <bean id="settingFile" class="org.springframework.core.io.ClassPathResource">
+    <bean id="settingFile" class="org.springframework.core.io.FileSystemResource">
         <constructor-arg value="setting.xml"/>
     </bean>
 
-    <bean id="arrowLeftFile" class="org.springframework.core.io.ClassPathResource">
-        <constructor-arg value="arrowLeft.png"/>
+    <bean id="arrowLeftFile" class="org.springframework.core.io.FileSystemResource">
+        <constructor-arg value="app/resource/arrowLeft.png"/>
     </bean>
 
-    <bean id="arrowRightFile" class="org.springframework.core.io.ClassPathResource">
-        <constructor-arg value="arrowRight.png"/>
+    <bean id="arrowRightFile" class="org.springframework.core.io.FileSystemResource">
+        <constructor-arg value="app/resource/arrowRight.png"/>
     </bean>
 
     <bean id="ftpClient" class="org.apache.commons.net.ftp.FTPClient"/>

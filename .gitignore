@@ -2,11 +2,4 @@
 target/**
 *.iml
 out/
-
-hermes-server/.idea/**
-hermes-server/target/**
-hermes-server/*.iml
-
-hermes-web/.idea/**
-hermes-web/target/**
-hermes-web/*.iml
+include/jre/**
