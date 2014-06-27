@@ -44,6 +44,7 @@
                 <constructor-arg value="app/resource/template.html" type="java.io.File"/>
             </bean>
         </constructor-arg>
+        <constructor-arg value="UTF-8" />
     </bean>
 
     <bean id="settingFile" class="org.springframework.core.io.FileSystemResource">
