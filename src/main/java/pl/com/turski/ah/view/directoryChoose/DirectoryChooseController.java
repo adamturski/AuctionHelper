@@ -46,7 +46,7 @@ public class DirectoryChooseController implements ViewController {
         if (directory != null) {
             LOG.info("Użytkownik wybrał katalog {}", directory);
             imagesDirectory = directory;
-            images = Arrays.asList(directory.listFiles((FileFilter) new SuffixFileFilter(Arrays.asList(".jpg", ".jpeg"))));
+            images = Arrays.asList(directory.listFiles((FileFilter) new SuffixFileFilter(Arrays.asList(".jpg", ".jpeg",".JPG",".JPEG"))));
             directoryPathLabel.setText(directory.getAbsolutePath());
             ObservableList<String> fileList = FXCollections.observableArrayList();
             for (File image : images) {
