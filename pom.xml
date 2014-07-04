@@ -22,14 +22,14 @@
             <id>jre</id>
             <properties>
                 <assemblyFile>assembly_with_jre.xml</assemblyFile>
-                <batchCommand>jre\bin\java.exe -jar app\AuctionHelper-1.1-jfx.jar</batchCommand>
+                <batchCommand>jre\bin\java.exe -jar app\AuctionHelper-${version}-jfx.jar</batchCommand>
             </properties>
         </profile>
         <profile>
             <id>without_jre</id>
             <properties>
                 <assemblyFile>assembly_without_jre.xml</assemblyFile>
-                <batchCommand>"%JAVA_HOME%\bin\java.exe" -jar app\AuctionHelper-1.1-jfx.jar</batchCommand>
+                <batchCommand>"%JAVA_HOME%\bin\java.exe" -jar app\AuctionHelper-${version}-jfx.jar</batchCommand>
             </properties>
         </profile>
     </profiles>
