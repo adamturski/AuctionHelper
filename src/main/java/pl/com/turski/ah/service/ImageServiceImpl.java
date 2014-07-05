@@ -43,10 +43,10 @@ public class ImageServiceImpl implements ImageService {
         GallerySetting gallerySetting = settingManager.getGallerySetting();
         BufferedImage buffImage = ImageIO.read(image);
         BufferedImage resizedBuffImage = resizeImage(buffImage, gallerySetting.getImageWidth());
-        String newImageFileName = FilenameUtils.getBaseName(image.getName()) + "_." + FilenameUtils.getExtension(image.getName());
+        String newImageFileName = FilenameUtils.getBaseName(image.getName()) + "_." + FilenameUtils.getExtension(image.getName().toLowerCase());
         ImageIO.write(resizedBuffImage, "jpg", new File(galleryDirectory, newImageFileName));
         BufferedImage thumbnailBuffImage = resizeImage(buffImage, gallerySetting.getThumbnailWidth());
-        String newThumbnailFileName = FilenameUtils.getBaseName(image.getName()) + "_thumb." + FilenameUtils.getExtension(image.getName());
+        String newThumbnailFileName = FilenameUtils.getBaseName(image.getName()) + "_thumb." + FilenameUtils.getExtension(image.getName().toLowerCase());
         ImageIO.write(thumbnailBuffImage, "jpg", new File(galleryDirectory, newThumbnailFileName));
     }
 
