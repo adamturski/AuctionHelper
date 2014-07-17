@@ -11,7 +11,7 @@
 
     <groupId>pl.com.turski</groupId>
     <artifactId>AuctionHelper</artifactId>
-    <version>1.3</version>
+    <version>1.4</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,14 +22,14 @@
             <id>jre</id>
             <properties>
                 <assemblyFile>assembly_with_jre.xml</assemblyFile>
-                <batchCommand>jre\bin\java.exe -jar app\AuctionHelper-${version}-jfx.jar</batchCommand>
+                <batchCommand>jre\bin\java.exe -jar app\AuctionHelper-${project.version}-jfx.jar</batchCommand>
             </properties>
         </profile>
         <profile>
             <id>without_jre</id>
             <properties>
                 <assemblyFile>assembly_without_jre.xml</assemblyFile>
-                <batchCommand>"%JAVA_HOME%\bin\java.exe" -jar app\AuctionHelper-${version}-jfx.jar</batchCommand>
+                <batchCommand>"%JAVA_HOME%\bin\java.exe" -jar app\AuctionHelper-${project.version}-jfx.jar</batchCommand>
             </properties>
         </profile>
     </profiles>
