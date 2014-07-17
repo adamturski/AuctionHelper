@@ -52,11 +52,9 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void createGallery(File galleryDirectory, File image, File previousImage, File nextImage) throws IOException {
-        GallerySetting gallerySetting = settingManager.getGallerySetting();
         String filledGalleryTemplate = galleryTemplate;
         filledGalleryTemplate = filledGalleryTemplate.replace(GalleryTemplateAttr.TITLE.getKey(), "Zdjęcie: " + FilenameUtils.getBaseName(image.getName()));
-        filledGalleryTemplate = filledGalleryTemplate.replace(GalleryTemplateAttr.IMAGE_SRC.getKey(), FilenameUtils.getBaseName(image.getName()) + "_." + FilenameUtils.getExtension(image.getName()));
-        filledGalleryTemplate = filledGalleryTemplate.replace(GalleryTemplateAttr.IMAGE_WIDTH.getKey(), "width:" + gallerySetting.getImageWidth() + "px;");
+        filledGalleryTemplate = filledGalleryTemplate.replace(GalleryTemplateAttr.IMAGE_SRC.getKey(), FilenameUtils.getBaseName(image.getName()) + "_." + FilenameUtils.getExtension(image.getName().toLowerCase()));
         if (previousImage == null) {
             filledGalleryTemplate = filledGalleryTemplate.replace(GalleryTemplateAttr.PREVIOUS_LINK_DISPLAY.getKey(), "display:none;");
             filledGalleryTemplate = filledGalleryTemplate.replace(GalleryTemplateAttr.PREVIOUS_LINK_HREF.getKey(), "");
@@ -77,6 +75,6 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public BufferedImage resizeImage(BufferedImage image, Integer width) {
-        return Scalr.resize(image, Scalr.Mode.FIT_TO_WIDTH, width);
+        return Scalr.resize(image, Scalr.Method.QUALITY, Scalr.Mode.FIT_TO_WIDTH, width);
     }
 }

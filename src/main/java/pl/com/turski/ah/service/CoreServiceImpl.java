@@ -55,12 +55,12 @@ public class CoreServiceImpl implements CoreService {
 
     private String fillGallery(TemplateValue templateValue, String filledTemplate, GallerySetting gallerySetting) {
         File galleryDirectory = templateValue.getGalleryDirectory();
-        List<File> thumbnailFiles = Arrays.asList(galleryDirectory.listFiles((FileFilter) new SuffixFileFilter("_thumb.jpg")));
+        List<File> thumbnailFiles = Arrays.asList(galleryDirectory.listFiles((FileFilter) new SuffixFileFilter(Arrays.asList("_thumb.jpg","_thumb.jpeg"))));
         StringBuilder galleryPhotos = new StringBuilder();
         for (File thumbnailFile : thumbnailFiles) {
             String filledPhotoTemplate = galleryPhotoTemplate;
             filledPhotoTemplate = filledPhotoTemplate.replace(TemplateAttr.IMAGE_URL.getKey(), gallerySetting.getGalleriesDirectory() + "/" + templateValue.getRemoteGalleryName() + "/" + thumbnailFile.getName());
-            filledPhotoTemplate = filledPhotoTemplate.replace(TemplateAttr.IMAGE_HREF.getKey(), gallerySetting.getGalleriesDirectory() + "/" + templateValue.getRemoteGalleryName() + "/" + thumbnailFile.getName().replace("_thumb.jpg", ".html"));
+            filledPhotoTemplate = filledPhotoTemplate.replace(TemplateAttr.IMAGE_HREF.getKey(), gallerySetting.getGalleriesDirectory() + "/" + templateValue.getRemoteGalleryName() + "/" + thumbnailFile.getName().replace("_thumb.jpg", ".html").replace("_thumb.jpeg", ".html"));
             galleryPhotos.append(filledPhotoTemplate);
         }
         filledTemplate = filledTemplate.replace(TemplateAttr.GALLERY_PHOTOS.getKey(), galleryPhotos);
